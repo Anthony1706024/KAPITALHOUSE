@@ -1,481 +1,1222 @@
-{{-- ============================================================
-     resources/views/layouts/app.blade.php
-     Layout principal — incluye el navbar
-     ============================================================ --}}
+{{-- resources/views/welcome.blade.php --}}
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@yield('title', 'KBR KapitalHaus — Gestión Inmobiliaria de Élite')</title>
-    <link rel="icon" type="image/jpeg" href="{{ asset('img/logo.jpg') }}" />
-    
-    {{-- Font Awesome para íconos adicionales --}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBR KapitalHaus — Gestión Inmobiliaria Profesional</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ═══════════════════════════════════════
+           RESET & BASE
+        ═══════════════════════════════════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --navy:        #0a1a45;
+            --navy-mid:    #0d2260;
+            --navy-light:  #132863;
+            --gold:        #c9a84c;
+            --gold-light:  #e4c97e;
+            --gold-dim:    rgba(201,168,76,0.12);
+            --white:       #ffffff;
+            --gray-light:  #f4f5f7;
+            --text-mid:    #4a5568;
+            --text-muted:  rgba(255,255,255,0.65);
         }
 
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f8f9fa;
-            color: #2d3436;
+            font-family: 'Outfit', sans-serif;
+            background: var(--white);
             overflow-x: hidden;
         }
 
-        /* ---------- Hero Section ---------- */
-        .hero {
+        /* ═══════════════════════════════════════
+           ANIMACIONES GLOBALES
+        ═══════════════════════════════════════ */
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.4); }
+            50% { box-shadow: 0 0 0 15px rgba(201,168,76,0); }
+        }
+
+        @keyframes shine {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* ═══════════════════════════════════════
+           HERO / INICIO SECTION
+        ═══════════════════════════════════════ */
+        #inicio {
             position: relative;
-            min-height: 85vh;
+            width: 100%;
+            min-height: 100vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
             overflow: hidden;
         }
 
-        /* Imagen de fondo abstracta */
-        .hero::before {
-            content: '';
+        .hero-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600');
+            inset: 0;
+            background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1800&auto=format&fit=crop&q=80');
             background-size: cover;
-            background-position: center;
-            opacity: 0.15;
-            animation: slowZoom 20s ease-in-out infinite;
+            background-position: center 40%;
+            transform: scale(1.05);
+            animation: subtle-zoom 20s ease-in-out infinite alternate;
         }
 
-        @keyframes slowZoom {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        @keyframes subtle-zoom {
+            from { transform: scale(1.05); }
+            to   { transform: scale(1.12); }
         }
 
-        .hero__content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 2rem;
-            max-width: 900px;
-        }
-
-        .hero__badge {
-            display: inline-block;
-            background: rgba(201, 168, 76, 0.2);
-            backdrop-filter: blur(10px);
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: var(--kh-gold, #c9a84c);
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(201, 168, 76, 0.3);
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.3);
-        }
-
-        .hero__highlight {
-            color: var(--kh-gold, #c9a84c);
-            position: relative;
-            display: inline-block;
-        }
-
-        .hero__highlight::after {
-            content: '';
+        .hero-overlay-base {
             position: absolute;
-            bottom: -5px;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(10,26,69,0.92) 0%, rgba(13,34,96,0.78) 50%, rgba(10,26,69,0.85) 100%);
+        }
+
+        .hero-overlay-bottom {
+            position: absolute;
+            bottom: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--kh-gold, #c9a84c), transparent);
+            height: 40%;
+            background: linear-gradient(to top, rgba(10,26,69,1) 0%, transparent 100%);
         }
 
-        .hero p {
-            font-size: 1.3rem;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 2rem;
-            line-height: 1.5;
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient(45deg, rgba(201,168,76,0.03) 0px, rgba(201,168,76,0.03) 1px, transparent 1px, transparent 60px);
+            pointer-events: none;
         }
 
-        .hero__btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            background: var(--kh-gold, #c9a84c);
-            color: #1a1a2e;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        .hero-circle {
+            position: absolute;
+            right: -120px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            border: 1px solid rgba(201,168,76,0.15);
+            animation: pulse-ring 4s ease-in-out infinite;
         }
 
-        .hero__btn:hover {
-            transform: translateY(-3px);
-            background: var(--kh-gold-lt, #e8c97a);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        .hero-circle::before {
+            content: '';
+            position: absolute;
+            inset: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(201,168,76,0.10);
         }
 
-        /* ---------- Sección de Beneficios ---------- */
-        .benefits {
-            padding: 5rem 2rem;
-            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+        .hero-circle::after {
+            content: '';
+            position: absolute;
+            inset: 80px;
+            border-radius: 50%;
+            border: 1px solid rgba(201,168,76,0.06);
         }
 
-        .container {
+        @keyframes pulse-ring {
+            0%, 100% { opacity: 0.5; }
+            50%       { opacity: 1; }
+        }
+
+        .gold-line {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+            opacity: 0.6;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 2.5rem;
+            padding-top: 100px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(201,168,76,0.12);
+            border: 1px solid rgba(201,168,76,0.35);
+            border-radius: 100px;
+            padding: 6px 18px 6px 8px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fade-up 0.8s ease forwards 0.3s;
+        }
+
+        .hero-eyebrow-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: blink 2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.3; }
+        }
+
+        .hero-eyebrow span {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 6.5vw, 5.5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fade-up 0.9s ease forwards 0.5s;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .hero-title strong {
+            font-weight: 700;
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            font-weight: 300;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 540px;
+            margin-bottom: 2.8rem;
+            opacity: 0;
+            animation: fade-up 0.9s ease forwards 0.7s;
+        }
+
+        .hero-cta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fade-up 0.9s ease forwards 0.9s;
+        }
+
+        .btn-primary, .btn-gold-solid {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gold);
+            color: var(--navy);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            padding: 15px 32px;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 24px rgba(201,168,76,0.3);
+        }
+
+        .btn-primary:hover, .btn-gold-solid:hover {
+            background: var(--gold-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(201,168,76,0.45);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--white);
+            font-size: 0.9rem;
+            font-weight: 400;
+            padding: 15px 32px;
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.25);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.07);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-gold {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 10px 24px;
+            border-radius: 40px;
+            border: 1px solid var(--gold);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-gold:hover {
+            background: var(--gold);
+            color: var(--navy);
+            transform: translateY(-2px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fade-in 1s ease forwards 1.8s;
+        }
+
+        .scroll-mouse {
+            width: 24px;
+            height: 38px;
+            border: 1.5px solid rgba(255,255,255,0.35);
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .scroll-mouse::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            width: 3px;
+            height: 7px;
+            background: var(--gold);
+            border-radius: 2px;
+            animation: scroll-bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes scroll-bounce {
+            0%   { top: 6px; opacity: 1; }
+            80%  { top: 18px; opacity: 0; }
+            100% { top: 6px; opacity: 0; }
+        }
+
+        .scroll-text {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* ═══════════════════════════════════════
+           SECCIONES GLOBALES
+        ═══════════════════════════════════════ */
+        .section-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 28px;
+            height: 1.5px;
+            background: var(--gold);
         }
 
         .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #123489;
-            margin-bottom: 3rem;
-            position: relative;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 300;
+            line-height: 1.15;
+            color: var(--navy);
         }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #c9a84c, #e8c97a);
-            margin: 1rem auto 0;
-            border-radius: 2px;
+        .section-title em {
+            font-style: italic;
+            color: var(--gold);
         }
 
-        .benefits-grid {
+        /* ═══════════════════════════════════════
+           QUIÉNES SOMOS (RESUMEN)
+        ═══════════════════════════════════════ */
+        #quienes-somos {
+            padding: 7rem 0;
+            background: var(--white);
+        }
+
+        .qs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 2rem;
         }
 
-        .benefit-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem 1.5rem;
-            text-align: center;
+        .qs-text p {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--text-mid);
+            line-height: 1.85;
+            margin-bottom: 1.5rem;
+        }
+
+        .qs-image {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+        }
+
+        .qs-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .qs-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10,26,69,0.6) 0%, transparent 50%);
+        }
+
+        .btn-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--gold);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 12px 28px;
+            border-radius: 40px;
+            border: 1px solid var(--gold);
+            text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid rgba(201,168,76,0.1);
-            cursor: pointer;
+            margin-top: 0.5rem;
         }
 
-        .benefit-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border-color: rgba(201,168,76,0.3);
+        .btn-more:hover {
+            background: var(--gold);
+            color: var(--navy);
+            transform: translateX(5px);
         }
 
-        .benefit-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.2));
-            border-radius: 50%;
+        /* ═══════════════════════════════════════
+           SERVICIOS (RESUMEN - 3 CARDS)
+        ═══════════════════════════════════════ */
+        #servicios {
+            background: var(--gray-light);
+            padding: 7rem 0;
+        }
+
+        .servicios-resumen {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0 2.5rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -12px rgba(10,26,69,0.15);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--gold-dim) 0%, rgba(201,168,76,0.05) 100%);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 1.5rem;
-            font-size: 2.5rem;
-            color: #c9a84c;
+            font-size: 1.8rem;
+            color: var(--gold);
+            transition: all 0.3s ease;
         }
 
-        .benefit-card h3 {
+        .service-card:hover .service-icon {
+            transform: scale(1.05);
+        }
+
+        .service-card h3 {
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
-            color: #123489;
-            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.75rem;
         }
 
-        .benefit-card p {
-            color: #636e72;
+        .service-card p {
+            font-size: 0.9rem;
+            color: var(--text-mid);
             line-height: 1.6;
+            margin-bottom: 1.5rem;
         }
 
-        /* ---------- CTA Banner ---------- */
-        .cta-banner {
-            background: linear-gradient(135deg, #123489 0%, #1a4a8a 100%);
-            border-radius: 30px;
-            padding: 3rem;
-            margin: 3rem 0;
+        .service-link {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.3s ease;
+        }
+
+        .service-link:hover {
+            gap: 12px;
+        }
+
+        .text-center {
             text-align: center;
-            color: white;
+        }
+
+        /* ═══════════════════════════════════════
+           BENEFICIOS PREMIUM
+        ═══════════════════════════════════════ */
+        #beneficios {
+            padding: 7rem 0;
+            background: linear-gradient(135deg, #fefcf7 0%, #ffffff 100%);
             position: relative;
             overflow: hidden;
         }
 
-        .cta-banner::before {
+        .benefits-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .benefits-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(201,168,76,0.15) 0%, rgba(201,168,76,0.05) 100%);
+            padding: 0.5rem 1.5rem;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #b88b2c;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(201,168,76,0.2);
+        }
+
+        .counter-grid {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0 4rem;
+            flex-wrap: wrap;
+        }
+
+        .counter-item {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            background: rgba(201,168,76,0.05);
+            border-radius: 24px;
+            min-width: 160px;
+            border: 1px solid rgba(201,168,76,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .counter-item:hover {
+            transform: translateY(-5px);
+            background: rgba(201,168,76,0.1);
+            border-color: rgba(201,168,76,0.3);
+        }
+
+        .counter-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #c9a84c;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .counter-label {
+            font-size: 0.8rem;
+            color: #5a6e7c;
+            letter-spacing: 1px;
+        }
+
+        .flip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 5rem;
+        }
+
+        .flip-card {
+            background: transparent;
+            width: 320px;
+            height: 440px;
+            perspective: 1500px;
+            cursor: pointer;
+        }
+
+        .flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+            border-radius: 28px;
+        }
+
+        .flip-card:hover .flip-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-front, .flip-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 28px;
+            padding: 2rem 1.8rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 30px 45px -15px rgba(0,0,0,0.15);
+        }
+
+        .flip-front {
+            background: linear-gradient(145deg, #ffffff 0%, #fef9ef 100%);
+            border: 1px solid rgba(201,168,76,0.3);
+            text-align: center;
+            justify-content: center;
+        }
+
+        .icon-benefit {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(201,168,76,0.15) 0%, rgba(201,168,76,0.05) 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.2rem;
+            color: #c9a84c;
+            transition: all 0.3s ease;
+        }
+
+        .flip-back {
+            background: linear-gradient(135deg, #0a1a45 0%, #102559 100%);
+            color: white;
+            transform: rotateY(180deg);
+            text-align: left;
+            justify-content: flex-start;
+            gap: 0.8rem;
+        }
+
+        .flip-back ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .flip-back li {
+            margin-bottom: 0.9rem;
+            font-size: 0.85rem;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            line-height: 1.4;
+        }
+
+        .flip-back li i {
+            color: #c9a84c;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-swiper {
+            overflow: hidden;
+            padding: 1rem 0.5rem;
+        }
+
+        .glass-benefit-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 2rem;
+            height: 100%;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(201,168,76,0.2);
+        }
+
+        .glass-benefit-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(201,168,76,0.6);
+        }
+
+        .card-icon-big {
+            font-size: 2.5rem;
+            color: #c9a84c;
+            margin-bottom: 1.2rem;
+        }
+
+        .glass-benefit-card h4 {
+            font-size: 1.4rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            color: #0a1a45;
+            margin-bottom: 0.8rem;
+        }
+
+        .glass-benefit-card p {
+            color: #374151;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .result-gold-banner {
+            background: linear-gradient(115deg, #0a1a45 0%, #102559 100%);
+            border-radius: 40px;
+            padding: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+            animation: pulse-glow 3s infinite;
+        }
+
+        .result-gold-banner::before {
             content: '';
             position: absolute;
             top: -50%;
-            right: -50%;
+            left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
+            background: linear-gradient(45deg, transparent, rgba(201,168,76,0.08), transparent);
+            transform: rotate(45deg);
+            animation: shine 8s infinite linear;
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .cta-banner h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-banner p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-banner .btn {
-            background: var(--kh-gold, #c9a84c);
-            color: #1a1a2e;
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-block;
-            transition: all 0.3s;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-banner .btn:hover {
-            transform: scale(1.05);
-            background: var(--kh-gold-lt, #e8c97a);
-        }
-
-        /* ---------- Servicios ---------- */
-        .services {
-            padding: 4rem 2rem;
-            background: white;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .service-item {
-            text-align: center;
-            padding: 1.5rem;
-            transition: all 0.3s;
-        }
-
-        .service-item i {
-            font-size: 2.5rem;
-            color: #c9a84c;
-            margin-bottom: 1rem;
-        }
-
-        .service-item h4 {
-            font-size: 1.1rem;
-            color: #123489;
+        .result-gold-banner h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.7rem;
+            color: white;
             margin-bottom: 0.5rem;
         }
 
-        .service-item p {
-            font-size: 0.9rem;
-            color: #636e72;
+        .result-gold-banner span {
+            color: #e4c97e;
         }
 
-        /* ---------- Footer ---------- */
-        footer {
-            background: #0f2027;
-            color: white;
-            padding: 2rem;
+        .result-badge-gold {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 600;
+            border: 1px solid rgba(201,168,76,0.3);
+        }
+
+        /* ═══════════════════════════════════════
+           CONTACTO (RESUMEN)
+        ═══════════════════════════════════════ */
+        #contacto {
+            background: var(--gray-light);
+            padding: 7rem 0;
+        }
+
+        .contacto-resumen {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .contact-detail-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(10, 26, 69, 0.08);
+        }
+
+        .contact-detail-item i {
+            width: 40px;
+            height: 40px;
+            background: var(--gold-dim);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.1rem;
+        }
+
+        .contact-detail-item p, .contact-detail-item a {
+            color: var(--text-mid);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .contact-detail-item a:hover {
+            color: var(--gold);
+        }
+
+        .contact-form-resumen {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form-resumen h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 1.5px solid rgba(10, 26, 69, 0.1);
+            border-radius: 16px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--navy);
+            color: var(--white);
+            padding: 0.9rem;
+            border: none;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: var(--gold);
+            color: var(--navy);
+            transform: translateY(-2px);
+        }
+
+        .contact-footer-link {
             text-align: center;
+            margin-top: 2rem;
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .benefits-grid {
+        @media (max-width: 1000px) {
+            .qs-grid, .contacto-resumen {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
-            
-            .cta-banner {
-                padding: 2rem;
+            .servicios-resumen {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
             }
-            
-            .cta-banner h2 {
-                font-size: 1.5rem;
+            .flip-card {
+                width: 300px;
+                height: 420px;
+            }
+            .counter-grid {
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .section-wrap, .hero-content {
+                padding: 0 1.5rem;
+            }
+            .hero-circle {
+                display: none;
+            }
+            .hero-cta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .counter-item {
+                padding: 1rem;
+                min-width: 120px;
+            }
+            .result-gold-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
             }
         }
     </style>
 </head>
 <body>
 
-    {{-- Navbar --}}
     @include('layouts.navbar')
 
-    {{-- Contenido principal --}}
-    <main style="padding-top: 90px;">
-        
-        {{-- Hero Section --}}
-        <section class="hero">
-            <div class="hero__content">
-                <div class="hero__badge">
-                    <i class="fas fa-star" style="margin-right: 0.5rem;"></i>
-                    Gestión Inmobiliaria Premium
+    <main>
+
+        {{-- INICIO — HERO SECTION --}}
+        <section id="inicio">
+            <div class="hero-bg"></div>
+            <div class="hero-overlay-base"></div>
+            <div class="hero-overlay-bottom"></div>
+            <div class="hero-pattern"></div>
+            <div class="hero-circle"></div>
+            <div class="gold-line"></div>
+
+            <div class="hero-content">
+                <div class="hero-eyebrow">
+                    <div class="hero-eyebrow-dot"></div>
+                    <span>Gestión Profesional de Inmuebles</span>
                 </div>
-                <h1>
-                    Maximizamos <span class="hero__highlight">ingresos</span>,<br>
-                    reducimos <span class="hero__highlight">riesgos</span> y gestionamos<br>
-                    <span class="hero__highlight">todo por ti</span>
+                <h1 class="hero-title">
+                    Maximizamos <em>ingresos,</em>
+                    <strong>reducimos riesgos.</strong>
+                    Tu tranquilidad, nuestro trabajo.
                 </h1>
-                <p>Rentabilidad con tranquilidad — Tu propiedad, nuestro compromiso</p>
-                <a href="#contacto" class="hero__btn">
-                    <i class="fas fa-calendar-check"></i>
-                    Cotiza Gratis
-                    <i class="fas fa-arrow-right"></i>
-                </a>
+                <p class="hero-subtitle">
+                    Gestionamos tu propiedad con rigor financiero y cuidado profesional,
+                    para que obtengas la máxima rentabilidad sin el desgaste de administrarla tú mismo.
+                </p>
+                <div class="hero-cta">
+                    <a href="#contacto" class="btn-primary">
+                        <i class="fa-regular fa-paper-plane"></i> Contáctanos ahora
+                    </a>
+                    <a href="#quienes-somos" class="btn-secondary">
+                        <i class="fa-regular fa-circle-play"></i> Conocer más
+                    </a>
+                </div>
+            </div>
+
+            <div class="scroll-indicator">
+                <div class="scroll-mouse"></div>
+                <span class="scroll-text">Scroll</span>
             </div>
         </section>
 
-        {{-- Beneficios principales --}}
-        <section class="benefits">
-            <div class="container">
-                <h2 class="section-title">¿Por qué elegirnos?</h2>
-                <div class="benefits-grid">
-                    <div class="benefit-card">
-                        <div class="benefit-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3>Maximizamos tu rentabilidad</h3>
-                        <p>Optimizamos el valor de alquiler y reducimos tiempos de vacancia con estrategias probadas</p>
+        {{-- QUIÉNES SOMOS (RESUMEN) --}}
+        <section id="quienes-somos" data-aos="fade-up">
+            <div class="section-wrap">
+                <div class="section-label">Quiénes somos</div>
+                <div class="qs-grid">
+                    <div class="qs-text">
+                        <h2 class="section-title">Kapital House <em>gestión inmobiliaria & bienes raíces</em></h2>
+                        <p>
+                            Somos profesionales especializados en la gestión de inversiones inmobiliarias,
+                            administración de inmuebles y bienes raíces. Brindamos un servicio orientado a
+                            maximizar el rendimiento de los activos inmobiliarios de nuestros clientes.
+                        </p>
+                        <p>
+                            Nuestro enfoque combina la gestión inmobiliaria con el análisis financiero,
+                            tratando cada propiedad como un activo patrimonial que debe administrarse
+                            de manera eficiente, responsable y estratégica.
+                        </p>
+                        <a href="{{ route('nosotros') }}" class="btn-more">
+                            Conocer más <i class="fa-solid fa-arrow-right"></i>
+                        </a>
                     </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>Cero estrés</h3>
-                        <p>Nos encargamos de absolutamente todo: inquilinos, mantenimiento, cobranzas y legales</p>
+                    <div class="qs-image">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80" alt="Edificio moderno">
+                        <div class="qs-image-overlay"></div>
                     </div>
-                    <div class="benefit-card">
-                        <div class="benefit-icon">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                        <h3>Gestión profesional y completa</h3>
-                        <p>Equipo especializado disponible 24/7 para resolver cualquier eventualidad</p>
+                </div>
+            </div>
+        </section>
+
+        {{-- SERVICIOS (RESUMEN - 3 CARDS) --}}
+        <section id="servicios" data-aos="fade-up">
+            <div class="section-wrap">
+                <div class="section-label">Nuestros servicios</div>
+                <h2 class="section-title">Soluciones <em>integrales</em> para tu propiedad</h2>
+
+                <div class="servicios-resumen">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-user-tie"></i></div>
+                        <h3>Corretaje</h3>
+                        <p>Buscamos el inquilino adecuado mediante un proceso de evaluación que reduce riesgos y asegura estabilidad.</p>
+                        <a href="{{ route('servicios') }}" class="service-link">Ver más <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-building-columns"></i></div>
+                        <h3>Administración</h3>
+                        <p>Gestionamos todos los aspectos operativos, legales y financieros de tu propiedad sin que te preocupes por nada.</p>
+                        <a href="{{ route('servicios') }}" class="service-link">Ver más <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fa-solid fa-chart-line"></i></div>
+                        <h3>Asesoría</h3>
+                        <p>Te ayudamos a tomar mejores decisiones sobre tus activos inmobiliarios con análisis de mercado y rentabilidad.</p>
+                        <a href="{{ route('servicios') }}" class="service-link">Ver más <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
 
-                {{-- CTA Banner --}}
-                <div class="cta-banner">
-                    <h2>
-                        <i class="fas fa-home" style="margin-right: 0.5rem;"></i>
-                        ¿Tienes una propiedad?
-                    </h2>
-                    <p>Nos encargamos de todo — desde la primera visita hasta la entrega de llaves</p>
-                    <a href="#contacto" class="btn">
-                        <i class="fas fa-handshake"></i>
-                        Trabajemos juntos
+                <div class="text-center">
+                    <a href="{{ route('servicios') }}" class="btn-outline-gold">
+                        Ver todos los servicios <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
         </section>
 
-        {{-- Servicios adicionales --}}
-        <section class="services">
-            <div class="container">
-                <h2 class="section-title">Servicios incluidos</h2>
-                <div class="services-grid">
-                    <div class="service-item">
-                        <i class="fas fa-search"></i>
-                        <h4>Selección de inquilinos</h4>
-                        <p>Estudio crediticio y verificación de antecedentes</p>
+        {{-- BENEFICIOS PREMIUM --}}
+        <section id="beneficios" data-aos="fade-up">
+            <div class="section-wrap">
+                <div class="benefits-header">
+                    <div class="benefits-badge"><i class="fas fa-crown"></i> EXCLUSIVO · VALOR AGREGADO</div>
+                    <h2 class="section-title" style="color:var(--navy);">Beneficios <em>para el Propietario</em></h2>
+                    <p style="color: #5a6e7c; max-width: 580px; margin: 1rem auto 0;">Rentabilidad, seguridad y total tranquilidad, todo en un solo lugar.</p>
+                </div>
+
+                <div class="counter-grid">
+                    <div class="counter-item"><div class="counter-number"><span class="count-num" data-target="35">0</span>+</div><div class="counter-label">Propiedades gestionadas</div></div>
+                    <div class="counter-item"><div class="counter-number"><span class="count-num" data-target="98">0</span>%</div><div class="counter-label">Ocupación garantizada</div></div>
+                    <div class="counter-item"><div class="counter-number"><span class="count-num" data-target="24">0</span>/7</div><div class="counter-label">Alertas registrales</div></div>
+                </div>
+
+                <div class="flip-row">
+                    <div class="flip-card" data-aos="flip-left" data-aos-delay="100">
+                        <div class="flip-inner">
+                            <div class="flip-front"><div class="icon-benefit"><i class="fas fa-chart-line"></i></div><h3 style="font-size: 1.7rem;">Económicos</h3><p style="color:#4b5563;">Mayor rentabilidad garantizada</p><div style="margin-top: 1rem;"><i class="fas fa-arrow-right" style="color:#c9a84c;"></i> <span style="font-size:0.7rem;">pasa el mouse</span></div></div>
+                            <div class="flip-back"><i class="fas fa-coins" style="font-size: 2rem; color:#c9a84c;"></i><ul><li><i class="fas fa-check-circle"></i> Optimización del precio de alquiler</li><li><i class="fas fa-check-circle"></i> Reducción de periodos sin arrendar</li><li><i class="fas fa-check-circle"></i> Evaluación rigurosa de inquilinos</li><li><i class="fas fa-check-circle"></i> Mayor estabilidad en los ingresos</li></ul><div style="margin-top: auto; background: rgba(255,255,255,0.08); border-radius: 30px; padding: 0.7rem; text-align: center;"><strong style="color:#e4c97e;">⬆ mayor rentabilidad</strong></div></div>
+                        </div>
                     </div>
-                    <div class="service-item">
-                        <i class="fas fa-file-signature"></i>
-                        <h4>Contratos legales</h4>
-                        <p>Documentación profesional y asesoría jurídica</p>
+                    <div class="flip-card" data-aos="flip-left" data-aos-delay="200">
+                        <div class="flip-inner">
+                            <div class="flip-front"><div class="icon-benefit"><i class="fas fa-feather-alt"></i></div><h3 style="font-size: 1.7rem;">No Económicos</h3><p style="color:#4b5563;">Tranquilidad + resguardo</p><div style="margin-top: 1rem;"><i class="fas fa-magic"></i> <span style="font-size:0.7rem;">descubre</span></div></div>
+                            <div class="flip-back"><i class="fas fa-shield-heart" style="font-size: 2rem; color:#c9a84c;"></i><ul><li><i class="fas fa-check-circle"></i> Seguridad con respaldo profesional</li><li><i class="fas fa-check-circle"></i> Alerta registral anti-fraude</li><li><i class="fas fa-check-circle"></i> Control de morosidad</li><li><i class="fas fa-check-circle"></i> Gestión en ausencia geográfica</li></ul></div>
+                        </div>
                     </div>
-                    <div class="service-item">
-                        <i class="fas fa-tools"></i>
-                        <h4>Mantenimiento preventivo</h4>
-                        <p>Inspecciones y reparaciones sin que te preocupes</p>
+                </div>
+
+                <div class="carrusel-wrapper">
+                    <div style="text-align: center; margin-bottom: 2rem;"><span class="benefits-badge" style="background: #0a1a45; color: #e4c97e;"><i class="fas fa-infinity"></i> TRANQUILIDAD EN CADA DETALLE</span><h3 style="font-size: 1.5rem; font-family: 'Cormorant Garamond', serif;">Más que gestión: <em>experiencia premium</em></h3></div>
+                    <div class="swiper benefit-swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><div class="glass-benefit-card"><div class="card-icon-big"><i class="fas fa-clipboard-list"></i></div><h4>Supervisión profesional</h4><p>Seguridad por respaldo profesional en la administración, con supervisión a diferentes niveles.</p></div></div>
+                            <div class="swiper-slide"><div class="glass-benefit-card"><div class="card-icon-big"><i class="fas fa-file-registered"></i></div><h4>Alerta registral</h4><p>Protegemos tu patrimonio contra fraudes con monitoreo constante ante cambios inescrupulosos.</p></div></div>
+                            <div class="swiper-slide"><div class="glass-benefit-card"><div class="card-icon-big"><i class="fas fa-chart-line"></i></div><h4>Control de morosidad</h4><p>Seguimiento ante potenciales deterioros de la propiedad y gestión inmediata de incidencias.</p></div></div>
+                            <div class="swiper-slide"><div class="glass-benefit-card"><div class="card-icon-big"><i class="fas fa-globe-americas"></i></div><h4>Ausencia geográfica</h4><p>Tu propiedad bien cuidada y rentable sin importar donde estés.</p></div></div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination" style="position: relative; margin-top: 20px;"></div>
                     </div>
-                    <div class="service-item">
-                        <i class="fas fa-chart-pie"></i>
-                        <h4>Reportes mensuales</h4>
-                        <p>Dashboard con indicadores de rentabilidad</p>
-                    </div>
-                    <div class="service-item">
-                        <i class="fas fa-gavel"></i>
-                        <h4>Gestión de cobranzas</h4>
-                        <p>Recaudación y depósito automático</p>
-                    </div>
-                    <div class="service-item">
-                        <i class="fas fa-headset"></i>
-                        <h4>Soporte 24/7</h4>
-                        <p>Atención a inquilinos y propietarios</p>
-                    </div>
+                </div>
+
+                <div class="result-gold-banner" data-aos="zoom-in">
+                    <div><h3><span>✦ Resultado ✦</span><br> Mayor rentabilidad + tranquilidad absoluta</h3><p style="color: rgba(255,255,255,0.8); margin-top: 0.3rem;">Optimización del alquiler, reducción de vacancias, inquilinos evaluados.</p></div>
+                    <div class="result-badge-gold"><i class="fas fa-chart-simple"></i> +Rentabilidad sostenida</div>
                 </div>
             </div>
         </section>
 
-        {{-- Sección de contacto (placeholder) --}}
-        <section id="contacto" style="padding: 4rem 2rem; background: #f8f9fa;">
-            <div class="container" style="text-align: center;">
-                <h2 class="section-title">¿Listo para maximizar tu inversión?</h2>
-                <p style="font-size: 1.2rem; color: #636e72; margin-bottom: 2rem;">
-                    Contáctanos hoy y descubre cómo podemos transformar tu propiedad en una fuente de ingresos pasivos
-                </p>
-                <a href="https://wa.me/51961666679" target="_blank" style="display: inline-flex; align-items: center; gap: 0.8rem; background: #25d366; color: white; padding: 1rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 700;">
-                    <i class="fab fa-whatsapp" style="font-size: 1.5rem;"></i>
-                    Escríbenos por WhatsApp
-                </a>
+        {{-- CONTACTO (RESUMEN) --}}
+        <section id="contacto" data-aos="fade-up">
+            <div class="section-wrap">
+                <div class="section-label">Contacto</div>
+                <h2 class="section-title">Conversemos sobre <em>tu propiedad</em></h2>
+
+                <div class="contacto-resumen">
+                    <div class="contact-info">
+                        <h3>¿Listo para <em style="color: var(--gold);">transformar</em> tu propiedad?</h3>
+                        <p style="color: var(--text-mid); margin-bottom: 1.5rem;">Estamos aquí para ayudarte a maximizar la rentabilidad de tu inversión inmobiliaria.</p>
+                        <div class="contact-detail-item"><i class="fab fa-whatsapp"></i><a href="https://wa.me/51961666679" target="_blank">+51 961 666 679</a></div>
+                        <div class="contact-detail-item"><i class="far fa-envelope"></i><a href="mailto:contacto@kapitalhaus.com">contacto@kapitalhaus.com</a></div>
+                        <div class="contact-detail-item"><i class="far fa-clock"></i><p>Lun a Vie: 9:00 - 19:00 | Sáb: 10:00 - 14:00</p></div>
+                    </div>
+
+                    <div class="contact-form-resumen">
+                        <h3>Envíanos un <em style="color: var(--gold);">mensaje</em></h3>
+                        <form id="contactForm" action="#" method="POST">
+                            <div class="form-group"><input type="text" name="nombre" placeholder="Nombre completo *" required></div>
+                            <div class="form-group"><input type="email" name="email" placeholder="Correo electrónico *" required></div>
+                            <div class="form-group"><input type="tel" name="telefono" placeholder="Teléfono / WhatsApp"></div>
+                            <div class="form-group"><textarea name="mensaje" placeholder="Cuéntanos sobre tu propiedad..."></textarea></div>
+                            <button type="submit" class="btn-submit"><i class="far fa-paper-plane"></i> Enviar mensaje</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="contact-footer-link">
+                    <a href="{{ route('contacto') }}" class="btn-outline-gold">
+                        Ir a página de contacto <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
             </div>
         </section>
 
     </main>
 
-    <footer>
-        <p>&copy; 2024 KBR KapitalHaus — Gestión Inmobiliaria Profesional</p>
-        <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.7;">
-            <i class="fas fa-shield-alt"></i> Tu tranquilidad es nuestra prioridad
-        </p>
-    </footer>
+    @include('layouts.footer')
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true, offset: 100 });
+
+        new Swiper('.benefit-swiper', {
+            slidesPerView: 1, spaceBetween: 24, loop: true,
+            autoplay: { delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+        });
+
+        const counters = document.querySelectorAll('.count-num');
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = parseInt(counter.dataset.target);
+                    const count = parseInt(counter.innerText);
+                    const increment = Math.ceil(target / 50);
+                    if (count < target) {
+                        counter.innerText = count + increment;
+                        setTimeout(updateCount, 30);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        const counterSection = document.querySelector('.counter-grid');
+        if (counterSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            observer.observe(counterSection);
+        }
+
+        document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('.btn-submit');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            btn.disabled = true;
+            setTimeout(() => {
+                alert('¡Mensaje enviado con éxito! Te contactaremos pronto.');
+                this.reset();
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, 1500);
+        });
+    </script>
 </body>
 </html>
