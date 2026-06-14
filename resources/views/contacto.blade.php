@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Contáctanos — KBR KapitalHaus</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +27,9 @@
             --gray-light: #f8f9fc;
             --text-dark: #1e2a3a;
             --text-mid: #5a6e7c;
+            --toast-success: #10b981;
+            --toast-error: #ef4444;
+            --toast-warning: #f59e0b;
         }
 
         body {
@@ -323,6 +327,12 @@
             box-shadow: 0 15px 25px -10px rgba(201, 168, 76, 0.4);
         }
 
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Estilo del mapa */
         .map-link {
             margin-top: 1.5rem;
@@ -343,6 +353,71 @@
 
         .map-link a:hover {
             color: var(--gold);
+        }
+
+        /* Toast / Mensaje flotante */
+        .toast-message {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            min-width: 280px;
+            max-width: 400px;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .toast-message.show {
+            transform: translateX(0);
+        }
+
+        .toast-message.success {
+            border-left: 5px solid var(--toast-success);
+        }
+
+        .toast-message.error {
+            border-left: 5px solid var(--toast-error);
+        }
+
+        .toast-message.warning {
+            border-left: 5px solid var(--toast-warning);
+        }
+
+        .toast-icon {
+            font-size: 1.5rem;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .toast-text {
+            font-size: 0.8rem;
+            color: var(--text-mid);
+        }
+
+        .toast-close {
+            cursor: pointer;
+            color: var(--text-mid);
+            transition: color 0.2s;
+        }
+
+        .toast-close:hover {
+            color: var(--text-dark);
         }
 
         /* Responsive */
@@ -373,6 +448,11 @@
                 width: 42px;
                 height: 42px;
                 font-size: 1.1rem;
+            }
+            .toast-message {
+                left: 20px;
+                right: 20px;
+                min-width: auto;
             }
         }
 
@@ -468,7 +548,7 @@
 
                 <!-- Mapa (enlace) -->
                 <div class="map-link">
-                    <a href="#" target="_blank">
+                    <a href="https://www.google.com/maps/place/Av+Prol+Miraflores+2023,+V%C3%ADctor+Larco+Herrera+13001/data=!4m2!3m1!1s0x91ad161e5c7f185f:0x1bc575208312d26a?sa=X&ved=1t:242&ictx=111" target="_blank">
                         <i class="fas fa-map-marker-alt"></i> Ver ubicación en Google Maps
                     </a>
                 </div>
@@ -479,18 +559,19 @@
                 <h3>Envíanos un <em style="color: var(--gold); font-style: italic;">mensaje</em></h3>
                 <p class="form-subtitle">Completa el formulario y te responderemos a la brevedad.</p>
 
-                <form id="contactForm" action="#" method="POST">
+                <form id="contactForm" action="{{ route('contacto.whatsapp') }}" method="POST">
+                    @csrf
                     <div class="form-group">
-                        <input type="text" name="nombre" placeholder="Nombre completo *" required>
+                        <input type="text" name="nombre" id="nombre" placeholder="Nombre completo *" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Correo electrónico *" required>
+                        <input type="email" name="email" id="email" placeholder="Correo electrónico *" required>
                     </div>
                     <div class="form-group">
-                        <input type="tel" name="telefono" placeholder="Teléfono / WhatsApp">
+                        <input type="tel" name="telefono" id="telefono" placeholder="Teléfono / WhatsApp">
                     </div>
                     <div class="form-group">
-                        <select name="interes">
+                        <select name="interes" id="interes">
                             <option value="" disabled selected>¿Qué servicio te interesa?</option>
                             <option value="corretaje">Corretaje / Colocación de inquilinos</option>
                             <option value="administracion">Administración de inmuebles</option>
@@ -499,9 +580,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <textarea name="mensaje" placeholder="Cuéntanos sobre tu propiedad o consulta..."></textarea>
+                        <textarea name="mensaje" id="mensaje" placeholder="Cuéntanos sobre tu propiedad o consulta..."></textarea>
                     </div>
-                    <button type="submit" class="btn-submit">
+                    <button type="submit" class="btn-submit" id="submitBtn">
                         <i class="far fa-paper-plane"></i> Enviar mensaje
                     </button>
                 </form>
@@ -514,8 +595,62 @@
 
     @include('layouts.footer')
 
-    <!-- Script para efecto de aparición adicional y manejo de formulario -->
+    <!-- Contenedor para mensajes flotantes -->
+    <div id="toastContainer"></div>
+
     <script>
+        // Función para mostrar mensaje flotante
+        function showToast(message, type = 'success', title = '') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            const titles = {
+                success: '¡Éxito!',
+                error: 'Error',
+                warning: 'Atención'
+            };
+            
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                warning: 'fa-exclamation-triangle'
+            };
+            
+            toast.className = `toast-message ${type}`;
+            toast.innerHTML = `
+                <div class="toast-icon" style="color: ${type === 'success' ? 'var(--toast-success)' : (type === 'error' ? 'var(--toast-error)' : 'var(--toast-warning)')}">
+                    <i class="fas ${icons[type]}"></i>
+                </div>
+                <div class="toast-content">
+                    <div class="toast-title">${title || titles[type]}</div>
+                    <div class="toast-text">${message}</div>
+                </div>
+                <div class="toast-close">
+                    <i class="fas fa-times"></i>
+                </div>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Mostrar toast con animación
+            setTimeout(() => toast.classList.add('show'), 10);
+            
+            // Cerrar toast al hacer clic en la X
+            const closeBtn = toast.querySelector('.toast-close');
+            closeBtn.addEventListener('click', () => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            });
+            
+            // Auto-cerrar después de 5 segundos
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 5000);
+        }
+
         // Animación adicional: efecto de brillo en las tarjetas al cargar
         document.addEventListener('DOMContentLoaded', function() {
             // Pequeña animación de entrada para elementos internos
@@ -542,23 +677,77 @@
             });
         });
 
-        // Manejo del formulario (prevención básica + alerta)
+        // Manejo del formulario con AJAX y mensaje flotante
         const form = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        
         if (form) {
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                // Simulación de envío - Aquí puedes agregar tu lógica AJAX
-                const btn = form.querySelector('.btn-submit');
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
-                btn.disabled = true;
                 
-                setTimeout(() => {
-                    alert('¡Mensaje enviado con éxito! Te contactaremos muy pronto.');
-                    form.reset();
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                }, 1500);
+                // Validación básica
+                const nombre = document.getElementById('nombre').value.trim();
+                const email = document.getElementById('email').value.trim();
+                
+                if (!nombre) {
+                    showToast('Por favor ingresa tu nombre completo', 'warning', 'Campo requerido');
+                    document.getElementById('nombre').focus();
+                    return;
+                }
+                
+                if (!email) {
+                    showToast('Por favor ingresa tu correo electrónico', 'warning', 'Campo requerido');
+                    document.getElementById('email').focus();
+                    return;
+                }
+                
+                if (!email.includes('@') || !email.includes('.')) {
+                    showToast('Por favor ingresa un correo electrónico válido', 'warning', 'Formato inválido');
+                    document.getElementById('email').focus();
+                    return;
+                }
+                
+                // Deshabilitar botón y mostrar estado de carga
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+                submitBtn.disabled = true;
+                
+                try {
+                    const formData = new FormData(form);
+                    
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                            'Accept': 'application/json'
+                        },
+                        body: formData
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        // Mostrar mensaje de éxito
+                        showToast(data.message || 'Mensaje preparado correctamente', 'success', '¡Todo listo!');
+                        
+                        // Redirigir a WhatsApp después de un breve momento
+                        setTimeout(() => {
+                            window.open(data.url, '_blank');
+                        }, 1000);
+                        
+                        // Resetear formulario
+                        form.reset();
+                    } else {
+                        showToast(data.message || 'Ocurrió un error, intenta nuevamente', 'error', 'Error');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    showToast('Error de conexión. Verifica tu internet e intenta nuevamente', 'error', 'Error');
+                } finally {
+                    // Restaurar botón
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }
             });
         }
     </script>

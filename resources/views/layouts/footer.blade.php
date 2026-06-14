@@ -156,7 +156,7 @@
         <div class="footer__grid">
             <!-- Columna 1: Brand -->
             <div class="footer__brand">
-                <img src="{{ asset('img/logo.png') }}" alt="KBR KapitalHaus" class="footer__logo" />
+                <img src="{{ asset('img/logo_transparente.png') }}" alt="KBR KapitalHaus" class="footer__logo" />
                 <p class="footer__description">
                     Gestión Inmobiliaria Profesional orientada a maximizar la rentabilidad de tus activos 
                     con seguridad y tranquilidad.
