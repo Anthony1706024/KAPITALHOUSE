@@ -856,67 +856,6 @@
             </div>
         </section>
 
-        {{-- ════════════ CONTACTO ════════════ --}}
-        <section id="contacto" data-aos="fade-up">
-            <div class="section-wrap">
-                <div class="section-label">Contacto</div>
-                <h2 class="section-title">Conversemos sobre <em>tu propiedad</em></h2>
-
-                <div class="contacto-grid">
-                    <div class="contact-left">
-                        <div class="contact-info">
-                            <h3>¿Listo para <em style="color:var(--gold)">transformar</em> tu propiedad?</h3>
-                            <p class="sub">Estamos aquí para ayudarte a maximizar la rentabilidad de tu inversión inmobiliaria.</p>
-                            <div class="contact-item">
-                                <div class="contact-item-icon"><i class="fab fa-whatsapp"></i></div>
-                                <a href="https://wa.me/51961666679" target="_blank">+51 961 666 679</a>
-                            </div>
-                            <div class="contact-item">
-                                <div class="contact-item-icon"><i class="far fa-envelope"></i></div>
-                                <a href="mailto:contacto@kapitalhaus.com">contacto@kapitalhaus.com</a>
-                            </div>
-                            <div class="contact-item">
-                                <div class="contact-item-icon"><i class="far fa-clock"></i></div>
-                                <p>Lun a Vie: 9:00 – 19:00 | Sáb: 10:00 – 14:00</p>
-                            </div>
-                        </div>
-                        <div class="cta-banner">
-                            <div>
-                                <div class="cta-banner-title">¿Tienes propiedades sin alquilar?</div>
-                                <div class="cta-banner-sub">Te ayudamos a rentabilizarlas hoy mismo</div>
-                            </div>
-                            <a href="https://wa.me/51961666679" target="_blank" class="btn-whatsapp">WhatsApp <i class="fab fa-whatsapp"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="contact-form">
-                        <h3>Envíanos un <em style="color:var(--gold)">mensaje</em></h3>
-                        <form id="contactForm" action="#" method="POST">
-                            @csrf
-                            <div class="form-group"><input type="text" name="nombre" placeholder="Nombre completo *" required></div>
-                            <div class="form-group"><input type="email" name="email" placeholder="Correo electrónico *" required></div>
-                            <div class="form-group"><input type="tel" name="telefono" placeholder="Teléfono / WhatsApp"></div>
-                            <div class="form-group">
-                                <select name="servicio">
-                                    <option value="">¿Qué servicio te interesa?</option>
-                                    <option>Corretaje</option>
-                                    <option>Administración integral</option>
-                                    <option>Asesoría inmobiliaria</option>
-                                    <option>Mantenimiento</option>
-                                    <option>Alerta Registral</option>
-                                </select>
-                            </div>
-                            <div class="form-group"><textarea name="mensaje" placeholder="Cuéntanos sobre tu propiedad..."></textarea></div>
-                            <button type="submit" class="btn-submit"><i class="far fa-paper-plane"></i> Enviar mensaje</button>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="contact-footer">
-                    <a href="{{ url('/contacto') }}" class="btn-outline-gold">Ir a página de contacto <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </section>
 
     </main>
 

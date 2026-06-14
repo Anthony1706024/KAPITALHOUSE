@@ -249,7 +249,7 @@
     }
 
     /* ───────── RESPONSIVE ───────── */
-    @media (max-width:768px){
+    @media (max-width:999px){
 
         .top-bar{
             display:block;
@@ -281,7 +281,7 @@
         }
     }
 
-    @media (min-width:769px){
+    @media (min-width:1000px){
         .top-bar{
             display:none!important;
         }
