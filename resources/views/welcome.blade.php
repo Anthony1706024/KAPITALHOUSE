@@ -14,6 +14,141 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
+         /* Botón flotante de WhatsApp */
+    .whatsapp-float {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    /* Contenedor del botón con tooltip */
+    .whatsapp-button {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #25d366 0%, #128C7E 100%);
+        border-radius: 50%;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: none;
+    }
+
+    /* Icono de WhatsApp */
+    .whatsapp-button i {
+        font-size: 32px;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    /* Tooltip que aparece al hacer hover */
+    .whatsapp-button .tooltip {
+        position: absolute;
+        right: 70px;
+        background: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: 'Outfit', sans-serif;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        letter-spacing: 0.3px;
+        pointer-events: none;
+    }
+
+    /* Flecha del tooltip */
+    .whatsapp-button .tooltip::after {
+        content: '';
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent transparent rgba(0, 0, 0, 0.85);
+    }
+
+    /* Efecto hover del botón */
+    .whatsapp-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    }
+
+    /* Mostrar tooltip al hacer hover */
+    .whatsapp-button:hover .tooltip {
+        opacity: 1;
+        visibility: visible;
+        right: 80px;
+    }
+
+    /* Animación de pulso para llamar la atención */
+    @keyframes pulse-whatsapp {
+        0% {
+            box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+        }
+        70% {
+            box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+        }
+    }
+
+    .whatsapp-button {
+        animation: pulse-whatsapp 2s infinite;
+    }
+
+    /* Responsive para móviles */
+    @media (max-width: 768px) {
+        .whatsapp-button {
+            width: 55px;
+            height: 55px;
+        }
+        .whatsapp-button i {
+            font-size: 28px;
+        }
+        .whatsapp-button .tooltip {
+            font-size: 12px;
+            padding: 6px 12px;
+            white-space: nowrap;
+        }
+        .whatsapp-button .tooltip::after {
+            border-width: 4px;
+        }
+    }
+
+    /* Para pantallas muy pequeñas */
+    @media (max-width: 480px) {
+        .whatsapp-button {
+            width: 50px;
+            height: 50px;
+        }
+        .whatsapp-button i {
+            font-size: 25px;
+        }
+        .whatsapp-button .tooltip {
+            font-size: 11px;
+            padding: 5px 10px;
+            right: 60px;
+        }
+        .whatsapp-button:hover .tooltip {
+            right: 65px;
+        }
+    }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         /* ══════════════════════════════════
@@ -212,7 +347,8 @@
         .hero-bg {
             position: absolute; inset: 0;
             background-image: url('{{ asset("img/piscina.png") }}');
-            background-size: cover; background-position: center 40%;
+            background-size: cover; 
+            background-position: center 40%;
             animation: subtle-zoom 12s ease-in-out infinite alternate;
         }
         /* Overlays más sutiles para que la imagen tenga más protagonismo */
@@ -278,15 +414,24 @@
         .hero-cards-swiper { overflow: hidden; padding-bottom: 2rem !important; }
         .hero-cards-swiper .swiper-pagination-bullet { background: rgba(201,168,76,.4); opacity: 1; width: 6px; height: 6px; }
         .hero-cards-swiper .swiper-pagination-bullet-active { background: var(--gold); width: 20px; border-radius: 10px; }
-        .hero-card {
-            background: rgba(9,22,60,.65);
-            border: 1px solid rgba(201,168,76,.25); border-radius: 20px;
-            padding: 1.2rem 1rem; backdrop-filter: blur(10px);
-            transition: all .3s ease; text-align: center;
-            display: flex; flex-direction: column; align-items: center; height: 100%;
-        }
-        .hero-card:hover { background: rgba(9,22,60,.85); border-color: rgba(201,168,76,.6); transform: translateY(-4px); }
-        .hero-card .card-icon { font-size: 1.3rem; color: var(--gold); margin-bottom: 0.6rem; display: block; }
+.hero-card {
+    background: rgba(10, 26, 69, 0.55);  /* Fondo semi-transparente azul oscuro */
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 20px;
+    padding: 1.2rem 1rem;
+    /* backdrop-filter: blur(10px);  ← ELIMINAR o COMENTAR esta línea */
+    transition: all .3s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 155px;
+}
+.hero-card:hover { 
+    background: rgba(9,22,60,0.85); 
+    border-color: rgba(201,168,76,0.7); 
+    transform: translateY(-4px); 
+}        .hero-card .card-icon { font-size: 1.3rem; color: var(--gold); margin-bottom: 0.6rem; display: block; }
         .hero-card h3 { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); line-height: 1.3; margin-bottom: 0.3rem; }
         .hero-card h3 span { color: var(--gold); display: block; margin-top: 0.1rem; font-size: 0.85rem; }
         .hero-card .card-title-line { width: 35px; height: 2px; background: var(--gold); margin: 0.5rem auto; opacity: .6; }
@@ -695,8 +840,21 @@
             .footer__grid { grid-template-columns: repeat(2, 1fr); gap: 1.8rem; }
             .contacto-home-grid { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
             .contacto-home-buttons { justify-content: center; }
+        .hero-bg {
+            position: absolute; 
+            inset: 0;
+            background-image: url('{{ asset("img/piscina.png") }}');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: right top 160px;
+            animation: subtle-zoom 12s ease-in-out infinite alternate;
+            /* Fondo degradado azul para las áreas sin imagen */
+            background-color: #0a1a45;
+            background-blend-mode: normal;
+        }
         }
         @media (max-width: 999px) {
+
             .top-bar { display: block; }
             .navbar {
                 top: var(--top-bar-height);
@@ -1206,6 +1364,14 @@
                 <p class="footer__badge"><i class="fas fa-shield-alt"></i> Tu tranquilidad es nuestra prioridad</p>
             </div>
         </div>
+        <!-- HTML del Botón Flotante de WhatsApp -->
+<a href="https://wa.me/51961666679" target="_blank" class="whatsapp-float" id="whatsappFloat">
+    <div class="whatsapp-button">
+        <i class="fab fa-whatsapp"></i>
+        <span class="tooltip">📱 Contacta con un asesor</span>
+    </div>
+</a>
+
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

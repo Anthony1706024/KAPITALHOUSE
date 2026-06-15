@@ -3,6 +3,141 @@
      ============================================================ --}}
 
 <style>
+        /* Botón flotante de WhatsApp */
+    .whatsapp-float {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    /* Contenedor del botón con tooltip */
+    .whatsapp-button {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #25d366 0%, #128C7E 100%);
+        border-radius: 50%;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: none;
+    }
+
+    /* Icono de WhatsApp */
+    .whatsapp-button i {
+        font-size: 32px;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    /* Tooltip que aparece al hacer hover */
+    .whatsapp-button .tooltip {
+        position: absolute;
+        right: 70px;
+        background: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: 'Outfit', sans-serif;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        letter-spacing: 0.3px;
+        pointer-events: none;
+    }
+
+    /* Flecha del tooltip */
+    .whatsapp-button .tooltip::after {
+        content: '';
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent transparent rgba(0, 0, 0, 0.85);
+    }
+
+    /* Efecto hover del botón */
+    .whatsapp-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+    }
+
+    /* Mostrar tooltip al hacer hover */
+    .whatsapp-button:hover .tooltip {
+        opacity: 1;
+        visibility: visible;
+        right: 80px;
+    }
+
+    /* Animación de pulso para llamar la atención */
+    @keyframes pulse-whatsapp {
+        0% {
+            box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+        }
+        70% {
+            box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+        }
+    }
+
+    .whatsapp-button {
+        animation: pulse-whatsapp 2s infinite;
+    }
+
+    /* Responsive para móviles */
+    @media (max-width: 768px) {
+        .whatsapp-button {
+            width: 55px;
+            height: 55px;
+        }
+        .whatsapp-button i {
+            font-size: 28px;
+        }
+        .whatsapp-button .tooltip {
+            font-size: 12px;
+            padding: 6px 12px;
+            white-space: nowrap;
+        }
+        .whatsapp-button .tooltip::after {
+            border-width: 4px;
+        }
+    }
+
+    /* Para pantallas muy pequeñas */
+    @media (max-width: 480px) {
+        .whatsapp-button {
+            width: 50px;
+            height: 50px;
+        }
+        .whatsapp-button i {
+            font-size: 25px;
+        }
+        .whatsapp-button .tooltip {
+            font-size: 11px;
+            padding: 5px 10px;
+            right: 60px;
+        }
+        .whatsapp-button:hover .tooltip {
+            right: 65px;
+        }
+    }
     :root{
         --kh-navy:#123489;
         --kh-navy2:#0f2560;
@@ -347,7 +482,12 @@
         </li>
     </ul>
 </div>
-
+<a href="https://wa.me/51961666679" target="_blank" class="whatsapp-float">
+    <div class="whatsapp-button">
+        <i class="fab fa-whatsapp"></i>
+        <span class="tooltip">📱 Contacta con un asesor</span>
+    </div>
+</a>
 <script>
 const hamburger=document.getElementById('hamburger');
 const mobileMenu=document.getElementById('mobileMenu');
