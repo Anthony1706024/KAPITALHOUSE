@@ -231,6 +231,7 @@
             width: 100%; max-width: 100%; box-sizing: border-box;
             padding: 0 1.5rem;
             margin: 0; margin-top: 120px;
+            margin-bottom: 2rem;
             flex: 1; display: flex; flex-direction: column; justify-content: center;
         }
         .hero-title-main {
@@ -605,7 +606,7 @@
             .navbar__mobile-menu { display: none; }
         }
         @media (max-width: 768px) {
-            .hero-content { padding: 0 1.2rem; }
+            .hero-content { padding: 0 1.2rem; margin-top: 180px; margin-bottom: 1rem; }
             .hero-cards-section { padding: 0 1.2rem 3rem; }
             .qs-grid, .propuesta-box, .result-banner { grid-template-columns: 1fr; }
             .ben-grid { grid-template-columns: 1fr; }
