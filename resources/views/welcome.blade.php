@@ -802,29 +802,6 @@
             .footer__bottom { flex-direction: column; text-align: center; }
             .contacto-home-stats { flex-wrap: wrap; justify-content: center; }
         }
-
-        @media (max-width: 560px) {
-            .qs-stats { grid-template-columns: repeat(3,1fr); gap: .6rem; }
-            .proceso-timeline { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 480px) {
-            .hero-content {
-                margin-top: 420px;
-            }
-            .hero-title-main {
-                font-size: clamp(2.2rem, 11vw, 3.2rem);
-            }
-        }
-
-        @media (max-width: 400px) {
-            .hero-content {
-                margin-top: 450px;
-            }
-            .hero-title-main { 
-                font-size: clamp(2rem, 10vw, 2.8rem);
-            }
-        }
     </style>
 </head>
 <body>
