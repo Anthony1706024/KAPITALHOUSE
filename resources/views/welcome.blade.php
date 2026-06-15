@@ -41,7 +41,8 @@
         }
 
         html { scroll-behavior: smooth; scroll-padding-top: calc(var(--navbar-height) + var(--top-bar-height)); }
-        body { font-family: 'Outfit', sans-serif; background: var(--white); overflow-x: hidden; }
+        body { font-family: 'Outfit', sans-serif; background: var(--white); overflow-x: hidden; max-width: 100vw; }
+        html, body { max-width: 100%; }
 
         /* ── ANIMACIONES ── */
         @keyframes fade-up {
@@ -92,10 +93,12 @@
         .navbar__logo {
             display: flex; align-items: center; justify-content: center;
             height: 100%; flex-shrink: 0; text-decoration: none;
-            overflow: visible; position: relative; z-index: 2;
+            overflow: hidden; position: relative; z-index: 2;
+            max-width: 60%;
         }
         .navbar__logo img {
-            height: clamp(70px, 10vw, 100px); width: auto;
+            height: clamp(60px, 10vw, 100px); width: auto;
+            max-width: 100%;
             object-fit: contain; display: block;
             position: relative; top: 2px; transition: height .3s ease;
         }
@@ -180,7 +183,8 @@
         ══════════════════════════════════ */
         #inicio {
             position: relative; width: 100%; min-height: 100vh;
-            display: flex; flex-direction: column; overflow: hidden;
+            display: flex; flex-direction: column;
+            overflow: hidden; max-width: 100%;
         }
         .hero-bg {
             position: absolute; inset: 0;
@@ -561,11 +565,11 @@
         }
         @media (max-width: 999px) {
             .top-bar { display: block; }
-            .navbar { top: var(--top-bar-height); padding: 0 1rem; }
+            .navbar { top: var(--top-bar-height); padding: 0 1rem; overflow: hidden; }
             .navbar__links { display: none !important; }
             .navbar__hamburger { display: flex; }
             .navbar__mobile-menu { top: calc(var(--navbar-height) + var(--top-bar-height)); }
-            .navbar__logo img { height: clamp(65px, 18vw, 95px); }
+            .navbar__logo img { height: clamp(55px, 14vw, 85px); }
         }
         @media (min-width: 1000px) {
             .top-bar { display: none !important; }
