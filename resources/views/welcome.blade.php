@@ -65,7 +65,11 @@
         }
         @keyframes subtle-zoom {
             from { transform: scale(1.03); }
-            to   { transform: scale(1.08); }
+            to   { transform: scale(1.12); }
+        }
+        @keyframes quick-slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
         }
 
         /* ══════════════════════════════════
@@ -194,7 +198,7 @@
         .section-title em { font-style: italic; color: var(--gold); }
 
         /* ══════════════════════════════════
-           HERO
+           HERO - con más protagonismo de la imagen
         ══════════════════════════════════ */
         #inicio {
             position: relative;
@@ -209,21 +213,22 @@
             position: absolute; inset: 0;
             background-image: url('{{ asset("img/piscina.png") }}');
             background-size: cover; background-position: center 40%;
-            animation: subtle-zoom 20s ease-in-out infinite alternate;
+            animation: subtle-zoom 12s ease-in-out infinite alternate;
         }
+        /* Overlays más sutiles para que la imagen tenga más protagonismo */
         .hero-overlay-left {
             position: absolute; inset: 0;
-            background: linear-gradient(to right,rgba(10,26,69,.95) 0%,rgba(10,26,69,.82) 32%,rgba(10,26,69,.45) 58%,rgba(10,26,69,.10) 78%,transparent 100%);
+            background: linear-gradient(to right, rgba(10,26,69,.65) 0%, rgba(10,26,69,.45) 30%, rgba(10,26,69,.20) 55%, transparent 80%);
             z-index: 1;
         }
         .hero-overlay-bottom {
-            position: absolute; bottom: 0; left: 0; right: 0; height: 52%;
-            background: linear-gradient(to top,rgba(9,22,60,.98) 0%,rgba(9,22,60,.82) 30%,rgba(9,22,60,.52) 55%,transparent 100%);
+            position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+            background: linear-gradient(to top, rgba(9,22,60,.85) 0%, rgba(9,22,60,.50) 30%, transparent 100%);
             z-index: 1;
         }
         .hero-overlay-top {
             position: absolute; top: 0; left: 0; right: 0; height: 120px;
-            background: linear-gradient(to bottom, rgba(10,26,69,.55) 0%, transparent 100%);
+            background: linear-gradient(to bottom, rgba(10,26,69,.35) 0%, transparent 100%);
             z-index: 1;
         }
         .hero-content {
@@ -231,7 +236,7 @@
             width: 100%; max-width: 100%; box-sizing: border-box;
             padding: 0 1.5rem;
             margin: 0; margin-top: 120px;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             flex: 1; display: flex; flex-direction: column; justify-content: center;
         }
         .hero-title-main {
@@ -240,7 +245,7 @@
             font-weight: 800; line-height: 1.1;
             color: var(--white); text-transform: uppercase; letter-spacing: -.01em;
             opacity: 0; animation: fade-up .9s ease forwards .3s;
-            max-width: 800px;
+            max-width: 750px;
         }
         .hero-title-main .gold-text { color: var(--gold); }
         .hero-subtitle-secondary {
@@ -249,47 +254,260 @@
             color: rgba(255,255,255,.92); margin-top: .5rem;
             opacity: 0; animation: fade-up .9s ease forwards .5s;
         }
-        .hero-subtitle-secondary .gold-text { color: var(--gold); font-style: italic; }
 
-        /* ── Hero Cards ── */
+        /* ── Hero Cards - cuadros más pequeños y pasan más rápido ── */
         .hero-cards-section {
             position: relative; z-index: 10;
             width: 100%; max-width: 100%; box-sizing: border-box;
-            padding: 0 1.5rem 4rem;
-            margin-top: 10px;
+            padding: 0 1.5rem 3rem;
+            margin-top: 5px;
         }
         .hero-cards-nav {
             display: none; justify-content: flex-end;
-            gap: .75rem; margin-bottom: 1.5rem;
+            gap: .75rem; margin-bottom: 1rem;
         }
         @media (max-width: 1199px) { .hero-cards-nav { display: flex; } }
 
         .hero-nav-btn {
-            width: 40px; height: 40px; border-radius: 50%;
+            width: 36px; height: 36px; border-radius: 50%;
             background: rgba(255,255,255,.15); border: 1px solid rgba(201,168,76,.4);
             color: var(--gold); cursor: pointer; transition: all .3s ease;
             display: flex; align-items: center; justify-content: center;
         }
         .hero-nav-btn:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
-        .hero-cards-swiper { overflow: hidden; padding-bottom: 2.5rem !important; }
-        .hero-cards-swiper .swiper-pagination-bullet { background: rgba(201,168,76,.4); opacity: 1; }
-        .hero-cards-swiper .swiper-pagination-bullet-active { background: var(--gold); }
+        .hero-cards-swiper { overflow: hidden; padding-bottom: 2rem !important; }
+        .hero-cards-swiper .swiper-pagination-bullet { background: rgba(201,168,76,.4); opacity: 1; width: 6px; height: 6px; }
+        .hero-cards-swiper .swiper-pagination-bullet-active { background: var(--gold); width: 20px; border-radius: 10px; }
         .hero-card {
-            background: rgba(9,22,60,.75);
-            border: 1px solid rgba(201,168,76,.3); border-radius: 24px;
-            padding: 2rem 1.8rem; backdrop-filter: blur(12px);
-            transition: all .35s ease; text-align: center;
+            background: rgba(9,22,60,.65);
+            border: 1px solid rgba(201,168,76,.25); border-radius: 20px;
+            padding: 1.2rem 1rem; backdrop-filter: blur(10px);
+            transition: all .3s ease; text-align: center;
             display: flex; flex-direction: column; align-items: center; height: 100%;
         }
-        .hero-card:hover { background: rgba(9,22,60,.92); border-color: rgba(201,168,76,.7); transform: translateY(-6px); }
-        .hero-card .card-icon { font-size: 1.8rem; color: var(--gold); margin-bottom: 1rem; display: block; }
-        .hero-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--white); line-height: 1.3; margin-bottom: .5rem; }
-        .hero-card h3 span { color: var(--gold); display: block; margin-top: .1rem; }
-        .hero-card .card-title-line { width: 50px; height: 2px; background: var(--gold); margin: .8rem auto; opacity: .6; }
-        .hero-card p { font-size: .85rem; color: rgba(255,255,255,.7); line-height: 1.6; }
+        .hero-card:hover { background: rgba(9,22,60,.85); border-color: rgba(201,168,76,.6); transform: translateY(-4px); }
+        .hero-card .card-icon { font-size: 1.3rem; color: var(--gold); margin-bottom: 0.6rem; display: block; }
+        .hero-card h3 { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); line-height: 1.3; margin-bottom: 0.3rem; }
+        .hero-card h3 span { color: var(--gold); display: block; margin-top: 0.1rem; font-size: 0.85rem; }
+        .hero-card .card-title-line { width: 35px; height: 2px; background: var(--gold); margin: 0.5rem auto; opacity: .6; }
+        .hero-card p { font-size: 0.75rem; color: rgba(255,255,255,.7); line-height: 1.5; }
 
         /* ══════════════════════════════════
-           QUIÉNES SOMOS
+           SERVICIOS - Ahora primero al bajar
+        ══════════════════════════════════ */
+        #servicios { background: var(--gray-light); padding: 7rem 0; }
+        .servicios-header {
+            display: flex; align-items: flex-end; justify-content: space-between;
+            flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem;
+        }
+        .svc-nav-wrap { display: flex; gap: .75rem; }
+        .svc-nav-btn {
+            width: 44px; height: 44px; border-radius: 50%;
+            background: var(--white); border: 1px solid rgba(201,168,76,.4);
+            color: var(--gold); cursor: pointer; display: flex; align-items: center;
+            justify-content: center; transition: all .3s ease;
+        }
+        .svc-nav-btn:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+        .svc-swiper { overflow: hidden; padding-bottom: 2.5rem !important; }
+        .svc-swiper .swiper-pagination-bullet { background: rgba(10,26,69,.25); opacity: 1; }
+        .svc-swiper .swiper-pagination-bullet-active { background: var(--gold); }
+        .service-card {
+            background: var(--white); border-radius: 24px; padding: 2rem;
+            border: 1px solid transparent; transition: all .35s ease; height: 100%; cursor: default;
+        }
+        .service-card:hover {
+            transform: translateY(-8px); border-color: rgba(201,168,76,.5);
+            box-shadow: 0 24px 50px -12px rgba(10,26,69,.15);
+        }
+        .service-card:hover .service-icon { transform: scale(1.05); background: var(--navy); }
+        .service-card:hover .service-icon i { color: var(--gold-light); }
+        .service-icon {
+            width: 64px; height: 64px; background: var(--gold-dim); border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.5rem; font-size: 1.6rem; color: var(--gold); transition: all .3s ease;
+        }
+        .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--navy); margin-bottom: .7rem; }
+        .service-card p   { font-size: .88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 1.5rem; }
+        .service-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
+        .service-tag {
+            background: var(--gold-dim); padding: .3rem .8rem; border-radius: 40px;
+            font-size: .75rem; color: var(--navy); font-weight: 500;
+        }
+        .service-link {
+            color: var(--gold); font-size: .85rem; font-weight: 500; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 6px; transition: gap .3s ease;
+        }
+        .service-link:hover { gap: 12px; }
+
+        /* ══════════════════════════════════
+           BENEFICIOS - Segundo al bajar
+        ══════════════════════════════════ */
+        #beneficios { padding: 7rem 0; background: linear-gradient(135deg, #fefcf7 0%, #fff 100%); }
+        .benefits-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: var(--gold-dim); padding: .5rem 1.5rem; border-radius: 60px;
+            font-size: .7rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+            color: #b88b2c; margin-bottom: 1.2rem; border: 1px solid rgba(201,168,76,.2);
+        }
+        .ben-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2.5rem 0 0; }
+        .ben-card {
+            background: var(--gray-light); border-radius: 24px; padding: 2rem;
+            border: 1px solid transparent; transition: all .35s ease;
+        }
+        .ben-card:hover {
+            transform: translateY(-5px); border-color: rgba(201,168,76,.4);
+            box-shadow: 0 16px 40px -12px rgba(10,26,69,.12);
+        }
+        .ben-card-head { display: flex; align-items: center; gap: .8rem; margin-bottom: 1.5rem; }
+        .ben-emoji-wrap {
+            width: 48px; height: 48px; background: var(--gold-dim); border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+        }
+        .ben-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--navy); }
+        .ben-list { list-style: none; display: flex; flex-direction: column; gap: .8rem; }
+        .ben-list li { display: flex; align-items: flex-start; gap: .7rem; font-size: .88rem; color: var(--text-mid); }
+        .ben-list li i { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+        .ben-result {
+            margin-top: 1.5rem; background: var(--navy); border-radius: 14px;
+            padding: .9rem 1.1rem; font-size: .82rem; color: var(--gold-light); line-height: 1.5;
+        }
+        .result-banner {
+            background: linear-gradient(115deg, var(--navy) 0%, var(--navy-mid) 100%);
+            border-radius: 32px; padding: 2.5rem 3rem;
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            margin-top: 2rem; position: relative; overflow: hidden;
+            animation: pulse-glow 3s infinite;
+        }
+        .result-banner::before {
+            content: ''; position: absolute; top: -30%; right: 5%;
+            width: 280px; height: 280px; background: rgba(201,168,76,.05); border-radius: 50%;
+        }
+        .result-banner h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #fff; margin-bottom: .4rem; }
+        .result-banner h3 em { color: var(--gold-light); }
+        .result-banner p { color: rgba(255,255,255,.65); font-size: .88rem; }
+        .result-badge {
+            background: rgba(255,255,255,.1); backdrop-filter: blur(8px);
+            padding: .9rem 1.8rem; border-radius: 60px; font-weight: 600;
+            border: 1px solid rgba(201,168,76,.3); color: #fff; font-size: .9rem; white-space: nowrap;
+        }
+
+        /* ══════════════════════════════════
+           CONTACTANOS EN PÁGINA PRINCIPAL
+        ══════════════════════════════════ */
+        #contacto-home {
+            background: var(--navy);
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        #contacto-home::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .contacto-home-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .contacto-home-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        .contacto-home-title em {
+            color: var(--gold);
+            font-style: italic;
+        }
+        .contacto-home-text {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.8rem;
+        }
+        .contacto-home-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .btn-wsp-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #25d366;
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-wsp-home:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px -5px rgba(37,211,102,0.4);
+        }
+        .btn-wsp-home i {
+            font-size: 1.3rem;
+        }
+        .btn-contact-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--gold);
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 1.5px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+        .btn-contact-home:hover {
+            background: var(--gold);
+            color: var(--navy);
+            transform: translateX(5px);
+        }
+        .contacto-home-stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .stat-home-item {
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            padding: 1.2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(201,168,76,0.2);
+            min-width: 120px;
+        }
+        .stat-home-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .stat-home-label {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ══════════════════════════════════
+           QUIÉNES SOMOS - Ahora al final
         ══════════════════════════════════ */
         #quienes-somos { padding: 7rem 0; background: var(--white); }
         .qs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4.5rem; align-items: center; margin-top: 1.5rem; }
@@ -419,112 +637,6 @@
         .gana-item span { color: #fff; font-size: .85rem; }
 
         /* ══════════════════════════════════
-           SERVICIOS (Swiper)
-        ══════════════════════════════════ */
-        #servicios { background: var(--gray-light); padding: 7rem 0; }
-        .servicios-header {
-            display: flex; align-items: flex-end; justify-content: space-between;
-            flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem;
-        }
-        .svc-nav-wrap { display: flex; gap: .75rem; }
-        .svc-nav-btn {
-            width: 44px; height: 44px; border-radius: 50%;
-            background: var(--white); border: 1px solid rgba(201,168,76,.4);
-            color: var(--gold); cursor: pointer; display: flex; align-items: center;
-            justify-content: center; transition: all .3s ease;
-        }
-        .svc-nav-btn:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
-        .svc-swiper { overflow: hidden; padding-bottom: 2.5rem !important; }
-        .svc-swiper .swiper-pagination-bullet { background: rgba(10,26,69,.25); opacity: 1; }
-        .svc-swiper .swiper-pagination-bullet-active { background: var(--gold); }
-        .service-card {
-            background: var(--white); border-radius: 24px; padding: 2rem;
-            border: 1px solid transparent; transition: all .35s ease; height: 100%; cursor: default;
-        }
-        .service-card:hover {
-            transform: translateY(-8px); border-color: rgba(201,168,76,.5);
-            box-shadow: 0 24px 50px -12px rgba(10,26,69,.15);
-        }
-        .service-card:hover .service-icon { transform: scale(1.05); background: var(--navy); }
-        .service-card:hover .service-icon i { color: var(--gold-light); }
-        .service-icon {
-            width: 64px; height: 64px; background: var(--gold-dim); border-radius: 18px;
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 1.5rem; font-size: 1.6rem; color: var(--gold); transition: all .3s ease;
-        }
-        .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; color: var(--navy); margin-bottom: .7rem; }
-        .service-card p   { font-size: .88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 1.5rem; }
-        .service-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
-        .service-tag {
-            background: var(--gold-dim); padding: .3rem .8rem; border-radius: 40px;
-            font-size: .75rem; color: var(--navy); font-weight: 500;
-        }
-        .service-link {
-            color: var(--gold); font-size: .85rem; font-weight: 500; text-decoration: none;
-            display: inline-flex; align-items: center; gap: 6px; transition: gap .3s ease;
-        }
-        .service-link:hover { gap: 12px; }
-        .btn-outline-gold {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: transparent; color: var(--gold); font-size: .85rem; font-weight: 500;
-            padding: 10px 24px; border-radius: 40px; border: 1px solid var(--gold);
-            text-decoration: none; transition: all .3s ease;
-        }
-        .btn-outline-gold:hover { background: var(--gold); color: var(--navy); transform: translateY(-2px); }
-
-        /* ══════════════════════════════════
-           BENEFICIOS
-        ══════════════════════════════════ */
-        #beneficios { padding: 7rem 0; background: linear-gradient(135deg, #fefcf7 0%, #fff 100%); }
-        .benefits-badge {
-            display: inline-flex; align-items: center; gap: 10px;
-            background: var(--gold-dim); padding: .5rem 1.5rem; border-radius: 60px;
-            font-size: .7rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
-            color: #b88b2c; margin-bottom: 1.2rem; border: 1px solid rgba(201,168,76,.2);
-        }
-        .ben-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2.5rem 0 0; }
-        .ben-card {
-            background: var(--gray-light); border-radius: 24px; padding: 2rem;
-            border: 1px solid transparent; transition: all .35s ease;
-        }
-        .ben-card:hover {
-            transform: translateY(-5px); border-color: rgba(201,168,76,.4);
-            box-shadow: 0 16px 40px -12px rgba(10,26,69,.12);
-        }
-        .ben-card-head { display: flex; align-items: center; gap: .8rem; margin-bottom: 1.5rem; }
-        .ben-emoji-wrap {
-            width: 48px; height: 48px; background: var(--gold-dim); border-radius: 14px;
-            display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
-        }
-        .ben-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--navy); }
-        .ben-list { list-style: none; display: flex; flex-direction: column; gap: .8rem; }
-        .ben-list li { display: flex; align-items: flex-start; gap: .7rem; font-size: .88rem; color: var(--text-mid); }
-        .ben-list li i { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
-        .ben-result {
-            margin-top: 1.5rem; background: var(--navy); border-radius: 14px;
-            padding: .9rem 1.1rem; font-size: .82rem; color: var(--gold-light); line-height: 1.5;
-        }
-        .result-banner {
-            background: linear-gradient(115deg, var(--navy) 0%, var(--navy-mid) 100%);
-            border-radius: 32px; padding: 2.5rem 3rem;
-            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-            margin-top: 2rem; position: relative; overflow: hidden;
-            animation: pulse-glow 3s infinite;
-        }
-        .result-banner::before {
-            content: ''; position: absolute; top: -30%; right: 5%;
-            width: 280px; height: 280px; background: rgba(201,168,76,.05); border-radius: 50%;
-        }
-        .result-banner h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #fff; margin-bottom: .4rem; }
-        .result-banner h3 em { color: var(--gold-light); }
-        .result-banner p { color: rgba(255,255,255,.65); font-size: .88rem; }
-        .result-badge {
-            background: rgba(255,255,255,.1); backdrop-filter: blur(8px);
-            padding: .9rem 1.8rem; border-radius: 60px; font-weight: 600;
-            border: 1px solid rgba(201,168,76,.3); color: #fff; font-size: .9rem; white-space: nowrap;
-        }
-
-        /* ══════════════════════════════════
            FOOTER
         ══════════════════════════════════ */
         .footer {
@@ -532,7 +644,6 @@
             color: #ffffff;
             padding: 3rem 5% 1.5rem;
             width: 100%;
-            margin-top: 2rem;
         }
         .footer__container { max-width: 1300px; margin: 0 auto; }
         .footer__grid {
@@ -582,6 +693,8 @@
         @media (max-width: 1024px) {
             .mv-grid { grid-template-columns: 1fr 1fr; }
             .footer__grid { grid-template-columns: repeat(2, 1fr); gap: 1.8rem; }
+            .contacto-home-grid { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+            .contacto-home-buttons { justify-content: center; }
         }
         @media (max-width: 999px) {
             .top-bar { display: block; }
@@ -606,8 +719,8 @@
             .navbar__mobile-menu { display: none; }
         }
         @media (max-width: 768px) {
-            .hero-content { padding: 0 1.2rem; margin-top: 180px; margin-bottom: 1rem; }
-            .hero-cards-section { padding: 0 1.2rem 3rem; }
+            .hero-content { padding: 0 1.2rem; margin-top: 160px; margin-bottom: 0.5rem; }
+            .hero-cards-section { padding: 0 1.2rem 2rem; }
             .qs-grid, .propuesta-box, .result-banner { grid-template-columns: 1fr; }
             .ben-grid { grid-template-columns: 1fr; }
             .proceso-timeline { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
@@ -622,6 +735,7 @@
             .footer__title { text-align: center; }
             .footer__links li a:hover { transform: translateX(0); }
             .footer__bottom { flex-direction: column; text-align: center; }
+            .contacto-home-stats { flex-wrap: wrap; justify-content: center; }
         }
         @media (max-width: 560px) {
             .qs-stats { grid-template-columns: repeat(3,1fr); gap: .6rem; }
@@ -647,10 +761,10 @@
         </a>
         <ul class="navbar__links">
             <li><a href="{{ url('/') }}" class="{{ request()->is('/') ? 'active' : '' }}">INICIO</a></li>
-            <li><a href="{{ url('/nosotros') }}" class="{{ request()->is('nosotros') ? 'active' : '' }}">QUIENES SOMOS</a></li>
             <li><a href="{{ url('/servicios') }}" class="{{ request()->is('servicios') ? 'active' : '' }}">SERVICIOS</a></li>
             <li><a href="{{ url('/beneficios') }}" class="{{ request()->is('beneficios') ? 'active' : '' }}">BENEFICIOS</a></li>
-            <li><a href="{{ url('/contacto') }}" class="{{ request()->is('contacto') ? 'active' : '' }}">CONTÁCTANOS</a></li>
+            <li><a href="{{ url('/nosotros') }}" class="{{ request()->is('nosotros') ? 'active' : '' }}">NOSOTROS</a></li>
+            <li><a href="#contacto-home" class="contact-link">CONTÁCTANOS</a></li>
             <li>
                 <a href="https://wa.me/51961666679" target="_blank" class="menu-wsp" title="WhatsApp">
                     <i class="fab fa-whatsapp"></i>
@@ -666,10 +780,10 @@
     <div class="navbar__mobile-menu" id="mobileMenu">
         <ul>
             <li><a href="{{ url('/') }}">INICIO</a></li>
-            <li><a href="{{ url('/nosotros') }}">QUIENES SOMOS</a></li>
             <li><a href="{{ url('/servicios') }}">SERVICIOS</a></li>
             <li><a href="{{ url('/beneficios') }}">BENEFICIOS</a></li>
-            <li><a href="{{ url('/contacto') }}">CONTÁCTANOS</a></li>
+            <li><a href="{{ url('/nosotros') }}">NOSOTROS</a></li>
+            <li><a href="#contacto-home">CONTÁCTANOS</a></li>
             <li>
                 <a href="https://wa.me/51961666679" target="_blank">
                     <i class="fab fa-whatsapp"></i> WhatsApp
@@ -709,7 +823,7 @@
                                 <i class="fas fa-user-check card-icon"></i>
                                 <h3>Captamos al <span>inquilino ideal</span></h3>
                                 <div class="card-title-line"></div>
-                                <p>Seleccionamos inquilinos responsables luego de una evaluación de capacidad de pago, record crediticio y referencias.</p>
+                                <p>Seleccionamos inquilinos responsables luego de evaluación de capacidad de pago.</p>
                             </div>
                         </div>
                         <div class="swiper-slide">
@@ -717,7 +831,7 @@
                                 <i class="fas fa-file-signature card-icon"></i>
                                 <h3>Administramos <span>tu alquiler</span></h3>
                                 <div class="card-title-line"></div>
-                                <p>Nos encargamos de contratos, cobranzas, pago de impuestos (Sunat, predios y arbitrios).</p>
+                                <p>Nos encargamos de contratos, cobranzas, pago de impuestos.</p>
                             </div>
                         </div>
                         <div class="swiper-slide">
@@ -725,7 +839,7 @@
                                 <i class="fas fa-shield-alt card-icon"></i>
                                 <h3>Protegemos <span>tu inmueble</span></h3>
                                 <div class="card-title-line"></div>
-                                <p>Supervisamos mantenimientos, gestión de incidencias y seguimiento de alerta registral.</p>
+                                <p>Supervisamos mantenimientos, gestión de incidencias y alerta registral.</p>
                             </div>
                         </div>
                         <div class="swiper-slide">
@@ -737,135 +851,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hero-cards-pagination swiper-pagination" style="margin-top:1rem;"></div>
+                    <div class="hero-cards-pagination swiper-pagination" style="margin-top:0.5rem;"></div>
                 </div>
             </div>
         </section>
 
-        {{-- ════════════ QUIÉNES SOMOS ════════════ --}}
-        <section id="quienes-somos" data-aos="fade-up">
-            <div class="section-wrap">
-                <div class="section-label">Quiénes somos</div>
-                <div class="qs-grid">
-                    <div class="qs-text">
-                        <h2 class="section-title">Kapital House <em>gestión inmobiliaria &amp; bienes raíces</em></h2>
-                        <p>Somos una empresa especializada en gestión y consultoría inmobiliaria, enfocada en la administración de inmuebles, rentabilización de activos y asesoría financiera para inversiones, evaluación y estructuración de proyectos inmobiliarios.</p>
-                        <p>Nos enfocamos en maximizar la rentabilidad y el valor de los activos de nuestros clientes. Administramos cada propiedad de manera estratégica, eficiente y responsable, obteniendo el mayor rendimiento posible, mientras nuestros clientes rentan con total tranquilidad.</p>
-                        <a href="{{ url('/nosotros') }}" class="btn-more">
-                            Conocer más <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                    <div class="qs-image" data-aos="fade-left">
-                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80" alt="Edificio moderno KBR">
-                        <div class="qs-image-overlay"></div>
-                        <div class="qs-badge">
-                            <div class="qs-badge-icon"><i class="fas fa-award" style="color:var(--gold)"></i></div>
-                            <div>
-                                <div class="qs-badge-sub">Gestión profesional de inmuebles</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {{-- ════════════ MISIÓN, VISIÓN Y VALORES ════════════ --}}
-        <section id="mision-vision" data-aos="fade-up">
-            <div class="section-wrap">
-                <div class="section-label">Propósito</div>
-                <h2 class="section-title">Nuestro <em>propósito</em></h2>
-                <div class="mv-grid">
-                    <div class="mv-flip">
-                        <div class="mv-inner">
-                            <div class="mv-front">
-                                <div class="mv-icon-wrap"><i class="fas fa-bullseye"></i></div>
-                                <h3>Misión</h3>
-                                <p>Brindar soluciones integrales en gestión, administración y comercialización de propiedades, ofreciendo seguridad, tranquilidad y rentabilidad a nuestros clientes.</p>
-                                <div class="mv-hint"><i class="fas fa-hand-pointer"></i> Pasar el mouse</div>
-                            </div>
-                            <div class="mv-back" style="background:var(--navy);">
-                                <i class="fas fa-bullseye back-icon"></i>
-                                <h3>Nuestra Misión</h3>
-                                <p>Maximizar el valor de los inmuebles de nuestros clientes mediante una gestión profesional, eficiente y transparente, con foco en la seguridad y la rentabilidad sostenida.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mv-flip">
-                        <div class="mv-inner">
-                            <div class="mv-front">
-                                <div class="mv-icon-wrap"><i class="fas fa-eye"></i></div>
-                                <h3>Visión</h3>
-                                <p>Ser reconocidos como empresa líder en administración de inmuebles en la región, destacando por la excelencia de nuestros servicios y la confianza de nuestros clientes.</p>
-                                <div class="mv-hint"><i class="fas fa-hand-pointer"></i> Pasar el mouse</div>
-                            </div>
-                            <div class="mv-back" style="background:var(--navy-mid);">
-                                <i class="fas fa-eye back-icon"></i>
-                                <h3>Nuestra Visión</h3>
-                                <p>Liderar el mercado regional de gestión inmobiliaria con soluciones innovadoras que generen valor real y relaciones de largo plazo con nuestros clientes.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="valores-card">
-                        <div class="mv-icon-wrap"><i class="fas fa-gem" style="color:var(--gold);font-size:1.3rem"></i></div>
-                        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#fff;margin-top:.5rem">Valores</h3>
-                        <div class="valores-list">
-                            <div class="valor-tag"><i class="fas fa-check-circle"></i><span>Transparencia</span></div>
-                            <div class="valor-tag"><i class="fas fa-check-circle"></i><span>Eficiencia</span></div>
-                            <div class="valor-tag"><i class="fas fa-check-circle"></i><span>Integridad</span></div>
-                            <div class="valor-tag"><i class="fas fa-check-circle"></i><span>Orientación al Cliente</span></div>
-                            <div class="valor-tag"><i class="fas fa-check-circle"></i><span>Calidad de Servicio</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {{-- ════════════ OFERTA DE VALOR ════════════ --}}
-        <section id="oferta-valor" data-aos="fade-up">
-            <div class="section-wrap">
-                <div class="section-label">Oferta de valor</div>
-                <h2 class="section-title">Proceso <em>estratégico</em></h2>
-                <p style="color:var(--text-mid);max-width:520px;margin:.8rem 0 0">Cuatro pasos claros para transformar tu inmueble en una inversión rentable y sin complicaciones.</p>
-
-                <div class="proceso-timeline">
-                    <div class="step-card">
-                        <div class="step-num"><span>1</span></div>
-                        <h4>Evaluamos</h4>
-                        <p>Analizamos tu propiedad y su potencial de mercado</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-num"><span>2</span></div>
-                        <h4>Estrategia</h4>
-                        <p>Definimos el plan óptimo de rentabilidad</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-num"><span>3</span></div>
-                        <h4>Gestionamos</h4>
-                        <p>Operamos todo de principio a fin</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-num active"><span>4</span></div>
-                        <h4>Resultados</h4>
-                        <p>Tú recibes rentabilidad y tranquilidad</p>
-                    </div>
-                </div>
-
-                <div class="propuesta-box" data-aos="zoom-in">
-                    <div>
-                        <div class="propuesta-label">📌 Propuesta de valor</div>
-                        <h3 class="propuesta-title">Maximizamos ingresos,<br><em>reducimos riesgos</em></h3>
-                        <p class="propuesta-desc">Gestionamos todo por ti con un equipo profesional y tecnología al servicio de tu activo.</p>
-                    </div>
-                    <div class="gana-list">
-                        <div class="gana-item"><i class="fas fa-chart-line"></i><span>Más ingresos, mejor rentabilidad</span></div>
-                        <div class="gana-item"><i class="fas fa-user-check"></i><span>Inquilinos evaluados y confiables</span></div>
-                        <div class="gana-item"><i class="fas fa-shield-alt"></i><span>Seguridad legal y financiera</span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {{-- ════════════ SERVICIOS ════════════ --}}
+        {{-- ════════════ SERVICIOS (PRIMERO) ════════════ --}}
         <section id="servicios" data-aos="fade-up">
             <div class="section-wrap">
                 <div class="servicios-header">
@@ -956,7 +947,7 @@
             </div>
         </section>
 
-        {{-- ════════════ BENEFICIOS ════════════ --}}
+        {{-- ════════════ BENEFICIOS (SEGUNDO) ════════════ --}}
         <section id="beneficios" data-aos="fade-up">
             <div class="section-wrap">
                 <div class="benefits-badge"><i class="fas fa-crown"></i> EXCLUSIVO · VALOR AGREGADO</div>
@@ -1002,6 +993,163 @@
             </div>
         </section>
 
+        {{-- ════════════ OFERTA DE VALOR / PROCESO ════════════ --}}
+        <section id="oferta-valor" data-aos="fade-up">
+            <div class="section-wrap">
+                <div class="section-label">Oferta de valor</div>
+                <h2 class="section-title">Proceso <em>estratégico</em></h2>
+                <p style="color:var(--text-mid);max-width:520px;margin:.8rem 0 0">Cuatro pasos claros para transformar tu inmueble en una inversión rentable y sin complicaciones.</p>
+
+                <div class="proceso-timeline">
+                    <div class="step-card">
+                        <div class="step-num"><span>1</span></div>
+                        <h4>Evaluamos</h4>
+                        <p>Analizamos tu propiedad y su potencial de mercado</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num"><span>2</span></div>
+                        <h4>Estrategia</h4>
+                        <p>Definimos el plan óptimo de rentabilidad</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num"><span>3</span></div>
+                        <h4>Gestionamos</h4>
+                        <p>Operamos todo de principio a fin</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num active"><span>4</span></div>
+                        <h4>Resultados</h4>
+                        <p>Tú recibes rentabilidad y tranquilidad</p>
+                    </div>
+                </div>
+
+                <div class="propuesta-box" data-aos="zoom-in">
+                    <div>
+                        <div class="propuesta-label">📌 Propuesta de valor</div>
+                        <h3 class="propuesta-title">Maximizamos ingresos,<br><em>reducimos riesgos</em></h3>
+                        <p class="propuesta-desc">Gestionamos todo por ti con un equipo profesional y tecnología al servicio de tu activo.</p>
+                    </div>
+                    <div class="gana-list">
+                        <div class="gana-item"><i class="fas fa-chart-line"></i><span>Más ingresos, mejor rentabilidad</span></div>
+                        <div class="gana-item"><i class="fas fa-user-check"></i><span>Inquilinos evaluados y confiables</span></div>
+                        <div class="gana-item"><i class="fas fa-shield-alt"></i><span>Seguridad legal y financiera</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{-- ════════════ CONTÁCTANOS EN PÁGINA PRINCIPAL ════════════ --}}
+        <section id="contacto-home" data-aos="fade-up">
+            <div class="section-wrap">
+                <div class="contacto-home-grid">
+                    <div>
+                        <h2 class="contacto-home-title">¿Listo para <em>rentabilizar</em> tu propiedad?</h2>
+                        <p class="contacto-home-text">Contáctanos hoy mismo y descubre cómo podemos ayudarte a maximizar el valor de tu inversión inmobiliaria con total seguridad y tranquilidad.</p>
+                        <div class="contacto-home-buttons">
+                            <a href="https://wa.me/51961666679" target="_blank" class="btn-wsp-home">
+                                <i class="fab fa-whatsapp"></i> Escríbenos al WhatsApp
+                            </a>
+                            <a href="{{ url('/contacto') }}" class="btn-contact-home">
+                                <i class="fas fa-envelope"></i> Formulario de contacto
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contacto-home-stats">
+                        <div class="stat-home-item">
+                            <div class="stat-home-number">+50</div>
+                            <div class="stat-home-label">Propiedades administradas</div>
+                        </div>
+                        <div class="stat-home-item">
+                            <div class="stat-home-number">98%</div>
+                            <div class="stat-home-label">Clientes satisfechos</div>
+                        </div>
+                        <div class="stat-home-item">
+                            <div class="stat-home-number">24/7</div>
+                            <div class="stat-home-label">Soporte continuo</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{-- ════════════ MISIÓN, VISIÓN Y VALORES ════════════ --}}
+        <section id="mision-vision" data-aos="fade-up">
+            <div class="section-wrap">
+                <div class="section-label">Propósito</div>
+                <h2 class="section-title">Nuestro <em>propósito</em></h2>
+                <div class="mv-grid">
+                    <div class="mv-flip">
+                        <div class="mv-inner">
+                            <div class="mv-front">
+                                <div class="mv-icon-wrap"><i class="fas fa-bullseye"></i></div>
+                                <h3>Misión</h3>
+                                <p>Brindar soluciones integrales en gestión, administración y comercialización de propiedades, ofreciendo seguridad, tranquilidad y rentabilidad a nuestros clientes.</p>
+                                <div class="mv-hint"><i class="fas fa-hand-pointer"></i> Pasar el mouse</div>
+                            </div>
+                            <div class="mv-back" style="background:var(--navy);">
+                                <i class="fas fa-bullseye back-icon"></i>
+                                <h3>Nuestra Misión</h3>
+                                <p>Maximizar el valor de los inmuebles de nuestros clientes mediante una gestión profesional, eficiente y transparente, con foco en la seguridad y la rentabilidad sostenida.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mv-flip">
+                        <div class="mv-inner">
+                            <div class="mv-front">
+                                <div class="mv-icon-wrap"><i class="fas fa-eye"></i></div>
+                                <h3>Visión</h3>
+                                <p>Ser reconocidos como empresa líder en administración de inmuebles en la región, destacando por la excelencia de nuestros servicios y la confianza de nuestros clientes.</p>
+                                <div class="mv-hint"><i class="fas fa-hand-pointer"></i> Pasar el mouse</div>
+                            </div>
+                            <div class="mv-back" style="background:var(--navy-mid);">
+                                <i class="fas fa-eye back-icon"></i>
+                                <h3>Nuestra Visión</h3>
+                                <p>Liderar el mercado regional de gestión inmobiliaria con soluciones innovadoras que generen valor real y relaciones de largo plazo con nuestros clientes.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="valores-card">
+                        <div class="mv-icon-wrap"><i class="fas fa-gem" style="color:var(--gold);font-size:1.3rem"></i></div>
+                        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#fff;margin-top:.5rem">Valores</h3>
+                        <div class="valores-list">
+                            <div class="valor-tag"><i class="fas fa-check-circle"></i><span>Transparencia</span></div>
+                            <div class="valor-tag"><i class="fas fa-check-circle"></i><span>Eficiencia</span></div>
+                            <div class="valor-tag"><i class="fas fa-check-circle"></i><span>Integridad</span></div>
+                            <div class="valor-tag"><i class="fas fa-check-circle"></i><span>Orientación al Cliente</span></div>
+                            <div class="valor-tag"><i class="fas fa-check-circle"></i><span>Calidad de Servicio</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{-- ════════════ QUIÉNES SOMOS (AL FINAL) ════════════ --}}
+        <section id="quienes-somos" data-aos="fade-up">
+            <div class="section-wrap">
+                <div class="section-label">Quiénes somos</div>
+                <div class="qs-grid">
+                    <div class="qs-text">
+                        <h2 class="section-title">Kapital House <em>gestión inmobiliaria &amp; bienes raíces</em></h2>
+                        <p>Somos una empresa especializada en gestión y consultoría inmobiliaria, enfocada en la administración de inmuebles, rentabilización de activos y asesoría financiera para inversiones, evaluación y estructuración de proyectos inmobiliarios.</p>
+                        <p>Nos enfocamos en maximizar la rentabilidad y el valor de los activos de nuestros clientes. Administramos cada propiedad de manera estratégica, eficiente y responsable, obteniendo el mayor rendimiento posible, mientras nuestros clientes rentan con total tranquilidad.</p>
+                        <a href="{{ url('/nosotros') }}" class="btn-more">
+                            Conocer más <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="qs-image" data-aos="fade-left">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80" alt="Edificio moderno KBR">
+                        <div class="qs-image-overlay"></div>
+                        <div class="qs-badge">
+                            <div class="qs-badge-icon"><i class="fas fa-award" style="color:var(--gold)"></i></div>
+                            <div>
+                                <div class="qs-badge-sub">Gestión profesional de inmuebles</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     {{-- ════════════ FOOTER ════════════ --}}
@@ -1025,10 +1173,10 @@
                     <h4 class="footer__title">NAVEGACIÓN</h4>
                     <ul class="footer__links">
                         <li><a href="#inicio"><i class="fas fa-home"></i> Inicio</a></li>
-                        <li><a href="{{ url('/nosotros') }}"><i class="fas fa-users"></i> Quiénes Somos</a></li>
                         <li><a href="{{ url('/servicios') }}"><i class="fas fa-cogs"></i> Servicios</a></li>
                         <li><a href="{{ url('/beneficios') }}"><i class="fas fa-gem"></i> Beneficios</a></li>
-                        <li><a href="{{ url('/contacto') }}"><i class="fas fa-envelope"></i> Contáctanos</a></li>
+                        <li><a href="{{ url('/nosotros') }}"><i class="fas fa-users"></i> Quiénes Somos</a></li>
+                        <li><a href="#contacto-home"><i class="fas fa-envelope"></i> Contáctanos</a></li>
                     </ul>
                 </div>
 
@@ -1039,7 +1187,7 @@
                         <li><a href="{{ url('/servicios') }}"><i class="fas fa-building"></i> Administración de Inmuebles</a></li>
                         <li><a href="{{ url('/servicios') }}"><i class="fas fa-chart-line"></i> Asesoría Inmobiliaria</a></li>
                         <li><a href="{{ url('/servicios') }}"><i class="fas fa-gavel"></i> Gestión Legal</a></li>
-                        <li><a href="{{ url('/servicios') }}"><i class="fas fa-dollar-sign"></i> Cotiza Gratis</a></li>
+                        <li><a href="https://wa.me/51961666679" target="_blank"><i class="fas fa-dollar-sign"></i> Cotiza Gratis</a></li>
                     </ul>
                 </div>
 
@@ -1048,7 +1196,7 @@
                     <ul class="footer__links">
                         <li><a href="https://wa.me/51961666679" target="_blank"><i class="fab fa-whatsapp"></i> +51 961 666 679</a></li>
                         <li><a href="mailto:contacto@kapitalhaus.pe"><i class="fas fa-envelope"></i> contacto@kapitalhaus.pe</a></li>
-                        <li><a href="#contacto"><i class="fas fa-map-marker-alt"></i> Lima, Perú</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Lima, Perú</a></li>
                     </ul>
                 </div>
             </div>
@@ -1066,11 +1214,11 @@
         /* AOS */
         AOS.init({ duration: 800, once: true, offset: 100 });
 
-        /* ── Hero cards swiper ── */
+        /* ── Hero cards swiper - más rápido ── */
         new Swiper('.hero-cards-swiper', {
             loop: true,
-            spaceBetween: 20,
-            autoplay: { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true },
+            spaceBetween: 16,
+            autoplay: { delay: 2500, disableOnInteraction: false, pauseOnMouseEnter: true },
             navigation: { nextEl: '.hero-next', prevEl: '.hero-prev' },
             pagination: { el: '.hero-cards-pagination', clickable: true },
             breakpoints: {
@@ -1097,8 +1245,12 @@
             mobileMenu.classList.toggle('open');
             document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
         });
-        document.querySelectorAll('.navbar__mobile-menu a, .top-bar__links a').forEach(link => {
-            link.addEventListener('click', () => {
+        document.querySelectorAll('.navbar__mobile-menu a, .top-bar__links a, .contact-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if(link.getAttribute('href') === '#contacto-home') {
+                    e.preventDefault();
+                    document.getElementById('contacto-home').scrollIntoView({ behavior: 'smooth' });
+                }
                 hamburger.classList.remove('open');
                 mobileMenu.classList.remove('open');
                 document.body.style.overflow = '';
