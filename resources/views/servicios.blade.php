@@ -149,7 +149,7 @@
         }
         @media (max-width:560px) {
             .section-wrap { padding:0 1.5rem; }
-            .page-hero-content { padding:0 1.5rem; }
+            .page-hero-content { padding:0 1.5rem; margin-top:50px;}
             .page-hero-circle  { display:none; }
         }
     </style>

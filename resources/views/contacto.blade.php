@@ -47,6 +47,8 @@
             min-height: 80vh;
             display: flex;
             align-items: center;
+            margin-top: 50px;
+
         }
 
         /* Imagen decorativa (solo en pantallas grandes) */
@@ -429,8 +431,8 @@
             .contacto-bg-decoration {
                 display: none;
             }
-            .contacto-page {
-                padding: 3rem 1.5rem;
+                .contacto-page {
+                margin-top: 100px;
             }
             .info-card, .form-card {
                 animation: fadeSlideUp 0.8s ease forwards;

@@ -20,7 +20,7 @@
             --navy:        #0a1a45;
             --navy-mid:    #0d2260;
             --navy-light:  #132863;
-            --gold:        #c9a84c;
+            --gold:        #f2bd2d;
             --gold-light:  #e4c97e;
             --gold-dim:    rgba(201,168,76,0.12);
             --white:       #ffffff;
@@ -92,7 +92,9 @@
         .hero-content {
             position: relative; z-index: 10;
             max-width: 1400px; width: 100%;
-            margin: 0; padding: 0 2.5rem; padding-top: 160px;
+            margin: 0; padding: 0 2.5rem; 
+            padding-top: 0;
+            margin-top: 120px;
             flex: 1; display: flex; flex-direction: column; justify-content: center;
         }
         .hero-title-main {
@@ -112,36 +114,25 @@
         }
         .hero-subtitle-secondary .gold-text { color: var(--gold); font-style: italic; }
 
-        /* ── Hero Cards ── */
+        /* ── Hero Cards — solo Swiper ── */
         .hero-cards-section {
             position: relative; z-index: 10;
             width: 100%; max-width: 1400px;
             margin: 0 auto; padding: 0 2rem 4rem;
             margin-top: 10px;
         }
-        .hero-cards-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; }
-        .hero-card {
-            background: rgba(9,22,60,.75);
-            border: 1px solid rgba(201,168,76,.3); border-radius: 24px;
-            padding: 2rem 1.8rem; backdrop-filter: blur(12px);
-            transition: all .35s ease; text-align: center;
-            opacity: 0; animation: fade-up .8s ease forwards;
-            display: flex; flex-direction: column; align-items: center; height: 100%;
+
+        /* Flechas: ocultas en escritorio, visibles en pantallas pequeñas */
+        .hero-cards-nav {
+            display: none;
+            justify-content: flex-end;
+            gap: .75rem;
+            margin-bottom: 1.5rem;
         }
-        .hero-card:nth-child(1){animation-delay:.7s}.hero-card:nth-child(2){animation-delay:.85s}
-        .hero-card:nth-child(3){animation-delay:1s}.hero-card:nth-child(4){animation-delay:1.15s}
-        .hero-card:hover { background: rgba(9,22,60,.92); border-color: rgba(201,168,76,.7); transform: translateY(-6px); }
-        .hero-card .card-icon { font-size: 1.8rem; color: var(--gold); margin-bottom: 1rem; display: block; }
-        .hero-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--white); line-height: 1.3; margin-bottom: .5rem; }
-        .hero-card h3 span { color: var(--gold); display: block; margin-top: .1rem; }
-        .hero-card .card-title-line { width: 50px; height: 2px; background: var(--gold); margin: .8rem auto; opacity: .6; }
-        .hero-card p { font-size: .85rem; color: rgba(255,255,255,.7); line-height: 1.6; }
-        .hero-cards-swiper-wrap { display: none; }
-        .hero-cards-swiper { overflow: hidden; padding-bottom: 2.5rem !important; }
-        .hero-cards-swiper .hero-card { opacity: 1; animation: none; }
-        .hero-cards-swiper .swiper-pagination-bullet { background: rgba(201,168,76,.4); opacity: 1; }
-        .hero-cards-swiper .swiper-pagination-bullet-active { background: var(--gold); }
-        .hero-cards-nav { display: flex; justify-content: flex-end; gap: .75rem; margin-bottom: 1.5rem; }
+        @media (max-width: 1199px) {
+            .hero-cards-nav { display: flex; }
+        }
+
         .hero-nav-btn {
             width: 40px; height: 40px; border-radius: 50%;
             background: rgba(255,255,255,.15); border: 1px solid rgba(201,168,76,.4);
@@ -149,6 +140,25 @@
             display: flex; align-items: center; justify-content: center;
         }
         .hero-nav-btn:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+
+        .hero-cards-swiper { overflow: hidden; padding-bottom: 2.5rem !important; }
+        .hero-cards-swiper .hero-card { opacity: 1 !important; animation: none !important; }
+        .hero-cards-swiper .swiper-pagination-bullet { background: rgba(201,168,76,.4); opacity: 1; }
+        .hero-cards-swiper .swiper-pagination-bullet-active { background: var(--gold); }
+
+        .hero-card {
+            background: rgba(9,22,60,.75);
+            border: 1px solid rgba(201,168,76,.3); border-radius: 24px;
+            padding: 2rem 1.8rem; backdrop-filter: blur(12px);
+            transition: all .35s ease; text-align: center;
+            display: flex; flex-direction: column; align-items: center; height: 100%;
+        }
+        .hero-card:hover { background: rgba(9,22,60,.92); border-color: rgba(201,168,76,.7); transform: translateY(-6px); }
+        .hero-card .card-icon { font-size: 1.8rem; color: var(--gold); margin-bottom: 1rem; display: block; }
+        .hero-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--white); line-height: 1.3; margin-bottom: .5rem; }
+        .hero-card h3 span { color: var(--gold); display: block; margin-top: .1rem; }
+        .hero-card .card-title-line { width: 50px; height: 2px; background: var(--gold); margin: .8rem auto; opacity: .6; }
+        .hero-card p { font-size: .85rem; color: rgba(255,255,255,.7); line-height: 1.6; }
 
         /* ══════════════════════════════════
            GLOBALS
@@ -499,15 +509,11 @@
            RESPONSIVE
         ══════════════════════════════════ */
         @media (max-width: 1024px) {
-            .hero-cards-grid { gap: 1.5rem; }
             .mv-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 768px) {
             .hero-content { padding: 0 1.5rem; padding-top: 120px; }
             .hero-cards-section { padding: 0 1.5rem 3rem; }
-            .hero-cards-grid { display: none; }
-            .hero-cards-swiper-wrap { display: block; }
-            .hero-cards-nav { display: none; }
             .qs-grid, .contacto-grid, .propuesta-box, .result-banner { grid-template-columns: 1fr; }
             .ben-grid { grid-template-columns: 1fr; }
             .proceso-timeline { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
@@ -541,51 +547,52 @@
                     GESTIÓN<br>INTEGRAL DE<br><span class="gold-text">PROPIEDADES</span>
                 </h1>
                 <p class="hero-subtitle-secondary">
-                    Administra tu propiedad de <span class="gold-text">principio a fin</span>
+                    <strong>Administra tu propiedad de <span class="gold-text">principio a fin</span></strong>
                 </p>
             </div>
 
             <div class="hero-cards-section">
+                {{-- Flechas: solo visibles en pantallas < 1200px --}}
                 <div class="hero-cards-nav">
                     <button class="hero-nav-btn hero-prev" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
                     <button class="hero-nav-btn hero-next" aria-label="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
 
-                {{-- Grid desktop --}}
-                <div class="hero-cards-grid">
-                    <div class="hero-card">
-                        <i class="fas fa-user-check card-icon"></i>
-                        <h3>Captamos al <span>inquilino ideal</span></h3>
-                        <div class="card-title-line"></div>
-                        <p>Seleccionamos inquilinos responsables luego de una evaluación de capacidad de pago, record crediticio y referencias.</p>
-                    </div>
-                    <div class="hero-card">
-                        <i class="fas fa-file-signature card-icon"></i>
-                        <h3>Administramos <span>tu alquiler</span></h3>
-                        <div class="card-title-line"></div>
-                        <p>Nos encargamos de contratos, cobranzas, pago de impuestos (Sunat, predios y arbitrios).</p>
-                    </div>
-                    <div class="hero-card">
-                        <i class="fas fa-shield-alt card-icon"></i>
-                        <h3>Protegemos <span>tu inmueble</span></h3>
-                        <div class="card-title-line"></div>
-                        <p>Supervisamos mantenimientos, gestión de incidencias y seguimiento de alerta registral.</p>
-                    </div>
-                    <div class="hero-card">
-                        <i class="fas fa-chart-line card-icon"></i>
-                        <h3>Garantizamos <span>continuidad de renta</span></h3>
-                        <div class="card-title-line"></div>
-                        <p>Minimizamos la vacancia recolocando inquilinos muy rápido.</p>
-                    </div>
-                </div>
-
-                {{-- Swiper mobile --}}
-                <div class="swiper hero-cards-swiper hero-cards-swiper-wrap">
+                {{-- Swiper único para todas las pantallas --}}
+                <div class="swiper hero-cards-swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide"><div class="hero-card"><i class="fas fa-user-check card-icon"></i><h3>Captamos al <span>inquilino ideal</span></h3><div class="card-title-line"></div><p>Seleccionamos inquilinos responsables luego de una evaluación de capacidad de pago, record crediticio y referencias.</p></div></div>
-                        <div class="swiper-slide"><div class="hero-card"><i class="fas fa-file-signature card-icon"></i><h3>Administramos <span>tu alquiler</span></h3><div class="card-title-line"></div><p>Nos encargamos de contratos, cobranzas, pago de impuestos (Sunat, predios y arbitrios).</p></div></div>
-                        <div class="swiper-slide"><div class="hero-card"><i class="fas fa-shield-alt card-icon"></i><h3>Protegemos <span>tu inmueble</span></h3><div class="card-title-line"></div><p>Supervisamos mantenimientos, gestión de incidencias y seguimiento de alerta registral.</p></div></div>
-                        <div class="swiper-slide"><div class="hero-card"><i class="fas fa-chart-line card-icon"></i><h3>Garantizamos <span>continuidad de renta</span></h3><div class="card-title-line"></div><p>Minimizamos la vacancia recolocando inquilinos muy rápido.</p></div></div>
+                        <div class="swiper-slide">
+                            <div class="hero-card">
+                                <i class="fas fa-user-check card-icon"></i>
+                                <h3>Captamos al <span>inquilino ideal</span></h3>
+                                <div class="card-title-line"></div>
+                                <p>Seleccionamos inquilinos responsables luego de una evaluación de capacidad de pago, record crediticio y referencias.</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="hero-card">
+                                <i class="fas fa-file-signature card-icon"></i>
+                                <h3>Administramos <span>tu alquiler</span></h3>
+                                <div class="card-title-line"></div>
+                                <p>Nos encargamos de contratos, cobranzas, pago de impuestos (Sunat, predios y arbitrios).</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="hero-card">
+                                <i class="fas fa-shield-alt card-icon"></i>
+                                <h3>Protegemos <span>tu inmueble</span></h3>
+                                <div class="card-title-line"></div>
+                                <p>Supervisamos mantenimientos, gestión de incidencias y seguimiento de alerta registral.</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="hero-card">
+                                <i class="fas fa-chart-line card-icon"></i>
+                                <h3>Garantizamos <span>continuidad de renta</span></h3>
+                                <div class="card-title-line"></div>
+                                <p>Minimizamos la vacancia recolocando inquilinos muy rápido.</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="hero-cards-pagination swiper-pagination" style="margin-top:1rem;"></div>
                 </div>
@@ -601,7 +608,6 @@
                         <h2 class="section-title">Kapital House <em>gestión inmobiliaria &amp; bienes raíces</em></h2>
                         <p>Somos una empresa especializada en gestión y consultoría inmobiliaria, enfocada en la administración de inmuebles, rentabilización de activos y asesoría financiera para inversiones, evaluación y estructuración de proyectos inmobiliarios.</p>
                         <p>Nos enfocamos en maximizar la rentabilidad y el valor de los activos de nuestros clientes. Administramos cada propiedad de manera estratégica, eficiente y responsable, obteniendo el mayor rendimiento posible, mientras nuestros clientes rentan con total tranquilidad.</p>
-                        {{-- Stats --}}
                         <a href="{{ url('/nosotros') }}" class="btn-more">
                             Conocer más <i class="fa-solid fa-arrow-right"></i>
                         </a>
@@ -626,7 +632,6 @@
                 <div class="section-label">Propósito</div>
                 <h2 class="section-title">Nuestro <em>propósito</em></h2>
                 <div class="mv-grid">
-                    {{-- Misión flip --}}
                     <div class="mv-flip">
                         <div class="mv-inner">
                             <div class="mv-front">
@@ -642,7 +647,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- Visión flip --}}
                     <div class="mv-flip">
                         <div class="mv-inner">
                             <div class="mv-front">
@@ -658,7 +662,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- Valores (no flip) --}}
                     <div class="valores-card">
                         <div class="mv-icon-wrap"><i class="fas fa-gem" style="color:var(--gold);font-size:1.3rem"></i></div>
                         <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:#fff;margin-top:.5rem">Valores</h3>
@@ -856,7 +859,6 @@
             </div>
         </section>
 
-
     </main>
 
     @include('layouts.footer')
@@ -867,12 +869,30 @@
         /* AOS */
         AOS.init({ duration: 800, once: true, offset: 100 });
 
-        /* ── Hero cards swiper (mobile) ── */
+        /* ── Hero cards swiper — carrusel automático responsivo ── */
         new Swiper('.hero-cards-swiper', {
-            slidesPerView: 1, spaceBetween: 16, loop: false,
-            navigation: { nextEl: '.hero-next', prevEl: '.hero-prev' },
-            pagination: { el: '.hero-cards-pagination', clickable: true },
-            breakpoints: { 560: { slidesPerView: 2 }, 900: { slidesPerView: 3 }, 1100: { slidesPerView: 4 } }
+            loop: true,
+            spaceBetween: 20,
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            },
+            navigation: {
+                nextEl: '.hero-next',
+                prevEl: '.hero-prev'
+            },
+            pagination: {
+                el: '.hero-cards-pagination',
+                clickable: true
+            },
+            /* 4 → 3 → 2 → 1 según ancho de pantalla */
+            breakpoints: {
+                1200: { slidesPerView: 4 },
+                900:  { slidesPerView: 3 },
+                560:  { slidesPerView: 2 },
+                0:    { slidesPerView: 1 }
+            }
         });
 
         /* ── Servicios swiper ── */
@@ -897,7 +917,7 @@
             c.addEventListener('mouseleave', () => { c.style.background = 'var(--gray-light)'; c.style.borderColor = 'transparent'; });
         });
 
-        /* ── Misión/Visión flip (CSS handles it via :hover, JS fallback for touch) ── */
+        /* ── Misión/Visión flip ── */
         document.querySelectorAll('.mv-flip').forEach(c => {
             c.addEventListener('click', () => {
                 const inner = c.querySelector('.mv-inner');
