@@ -754,7 +754,7 @@
             /* Hero: título más abajo, más grande y pegado a tarjetas */
             .hero-content {
                 padding: 0 1.2rem;
-                margin-top: 380px;
+                margin-top: 300px;
                 margin-bottom: 0;
                 flex: 0;
                 justify-content: flex-end;
