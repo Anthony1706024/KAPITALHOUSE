@@ -511,7 +511,7 @@
                     </div>
                     <div class="contact-detail">
                         <h4>WHATSAPP / CELULAR</h4>
-                        <a href="https://wa.me/51961666679" target="_blank">+51 961 666 679</a>
+                        <a href="https://wa.me/51964285907" target="_blank">+51 964 285 907</a>
                     </div>
                 </div>
 

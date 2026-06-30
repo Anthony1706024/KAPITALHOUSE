@@ -163,7 +163,7 @@
                 </p>
                 <div class="footer__social">
                     <a href="https://facebook.com" target="_blank" class="footer__social-link fb"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://wa.me/51961666679" target="_blank" class="footer__social-link wa"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://wa.me/51964285907" target="_blank" class="footer__social-link wa"><i class="fab fa-whatsapp"></i></a>
                     <a href="https://instagram.com" target="_blank" class="footer__social-link ig"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
@@ -180,25 +180,13 @@
                 </ul>
             </div>
 
-            <!-- Columna 3: Servicios -->
-            <div class="footer__col">
-                <h4 class="footer__title">SERVICIOS</h4>
-                <ul class="footer__links">
-                    <li><a href="{{ url('/servicios') }}"><i class="fas fa-handshake"></i> Corretaje de Inquilinos</a></li>
-                    <li><a href="{{ url('/servicios') }}"><i class="fas fa-building"></i> Administración de Inmuebles</a></li>
-                    <li><a href="{{ url('/servicios') }}"><i class="fas fa-chart-line"></i> Asesoría Inmobiliaria</a></li>
-                    <li><a href="{{ url('/servicios') }}"><i class="fas fa-gavel"></i> Gestión Legal</a></li>
-                    <li><a href="{{ url('/servicios') }}"><i class="fas fa-dollar-sign"></i> Cotiza Gratis</a></li>
-                </ul>
-            </div>
-
             <!-- Columna 4: Contacto -->
             <div class="footer__col">
                 <h4 class="footer__title">CONTACTO</h4>
                 <ul class="footer__links">
-                    <li><a href="https://wa.me/51961666679" target="_blank"><i class="fab fa-whatsapp"></i> +51 961 666 679</a></li>
+                    <li><a href="https://wa.me/51964285907" target="_blank"><i class="fab fa-whatsapp"></i> +51 961 666 679</a></li>
                     <li><a href="mailto:contacto@kapitalhaus.pe"><i class="fas fa-envelope"></i> contacto@kapitalhaus.pe</a></li>
-                    <li><a href="#contacto"><i class="fas fa-map-marker-alt"></i> Lima, Perú</a></li>
+                    <li><a href="#contacto"><i class="fas fa-map-marker-alt"></i> Trujillo, Perú</a></li>
                 </ul>
             </div>
         </div>

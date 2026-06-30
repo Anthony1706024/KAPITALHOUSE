@@ -21,7 +21,7 @@ class ContactoController extends Controller
             'mensaje' => 'nullable|string',
         ]);
 
-        $numero = '51961666679'; // Número sin el +51
+        $numero = '51964285907'; // Número sin el +51
         
         // Construir mensaje para WhatsApp
         $mensajeWhatsApp = "📩 *NUEVO MENSAJE DE CONTACTO* 📩\n\n";
