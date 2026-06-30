@@ -297,7 +297,7 @@
         gap: .8rem;
         color: white;
         text-decoration: none;
-        font-size: 1.2rem;
+        font-size: 0.8rem;
         font-weight: 700;
         padding: 1.1rem 1.8rem;
         transition: background .25s, color .25s, padding-left .25s;
@@ -429,10 +429,10 @@
     @media (max-width: 480px) {
         .navbar { padding: 0 0.6rem; }
         .navbar__logo { gap: 8px; }
-        .navbar__logo img { height: clamp(48px, 12vw, 62px); }
+        .navbar__logo img { height: clamp(50px, 12vw, 62px); }
         .logo-text .kapitalhaus {
             font-family: 'Cinzel', serif;
-            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            font-size: clamp(2.5rem, 2.5vw, 2rem);
             font-weight: 700;
             color: #ffffff;
             letter-spacing: 1.5px;
@@ -440,7 +440,7 @@
         }
         .logo-text .sub-title {
             font-family: 'Montserrat', sans-serif;
-            font-size: clamp(0.7rem, 1vw, 1rem);
+            font-size: clamp(0.5rem, 1vw, 1rem);
             font-weight: 500;
             color: #ffffff;
             letter-spacing: 2px;
