@@ -198,8 +198,12 @@
         }
         .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
         .logo-text .kapitalhaus {
-            font-size: clamp(1.2rem, 2.5vw, 2rem); font-weight: 700;
-            color: #ffffff; letter-spacing: 1.5px; text-transform: uppercase;
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 3.2vw, 2rem);
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1.5px;
+            text-transform: none; /* CapitalHaus tiene solo la K y H en mayúscula */
         }
         .logo-text .sub-title-wrapper {
             display: flex; flex-direction: column; align-items: flex-start; margin-top: 4px;
@@ -742,9 +746,25 @@
             .navbar__hamburger { display: flex; flex-shrink: 0; }
             .navbar__mobile-menu { top: calc(var(--navbar-height) + var(--top-bar-height)); }
             .navbar__logo img { height: clamp(55px, 14vw, 75px); }
-            .logo-text .kapitalhaus { font-size: clamp(1.1rem, 4.5vw, 1.6rem); letter-spacing: 1px; }
-            .logo-text .sub-title { font-size: clamp(0.38rem, 1.3vw, 0.55rem); letter-spacing: .7px; }
-            .logo-divider { height: clamp(38px, 10vw, 55px); }
+        .logo-text .kapitalhaus {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 3.2vw, 2rem);
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 1.5px;
+            text-transform: none; /* CapitalHaus tiene solo la K y H en mayúscula */
+        }
+ .logo-text .sub-title {
+                font-family: 'Montserrat', sans-serif;
+                font-size: clamp(0.5rem, 1vw, 1rem);
+                font-weight: 500;
+                color: #ffffff;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                opacity: .9;
+                white-space: nowrap;
+            }
+        .logo-divider { height: clamp(38px, 10vw, 55px); }
         }
 
         @media (min-width: 1000px) {
