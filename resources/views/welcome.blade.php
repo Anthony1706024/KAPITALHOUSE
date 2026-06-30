@@ -906,7 +906,7 @@
                     GESTIÓN<br>INTEGRAL DE<br><span class="gold-text">PROPIEDADES</span>
                 </h1>
                 <p class="hero-subtitle-secondary">
-                    <strong>Administra tu propiedad de <span class="gold-text">principio a fin</span></strong>
+                    <strong>Administramos tu propiedad de <span class="gold-text">principio a fin</span></strong>
                 </p>
             </div>
 
