@@ -162,9 +162,9 @@
                     con seguridad y tranquilidad.
                 </p>
                 <div class="footer__social">
-                    <a href="https://facebook.com" target="_blank" class="footer__social-link fb"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.facebook.com/share/18pAjLhkJ8/" target="_blank" class="footer__social-link fb"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://wa.me/51964285907" target="_blank" class="footer__social-link wa"><i class="fab fa-whatsapp"></i></a>
-                    <a href="https://instagram.com" target="_blank" class="footer__social-link ig"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/kbrkapitalhaus?igsh=MWV5MnBkY245cjlwdg==" target="_blank" class="footer__social-link ig"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
 

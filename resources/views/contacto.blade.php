@@ -541,10 +541,9 @@
                 <div class="social-section">
                     <h4>SÍGUENOS EN REDES</h4>
                     <div class="social-icons">
-                        <a href="#" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon" target="_blank"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.facebook.com/share/18pAjLhkJ8/" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/kbrkapitalhaus?igsh=MWV5MnBkY245cjlwdg==" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@kapitalkaus?_r=1&_t=ZS-97dMekThzHz" class="social-icon" target="_blank"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
 
